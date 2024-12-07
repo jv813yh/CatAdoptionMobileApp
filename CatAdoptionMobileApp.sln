@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatAdoptionMobileApp.MAUI", "CatAdoptionMobileApp.MAUI\CatAdoptionMobileApp.MAUI.csproj", "{3827C72A-C466-4CE0-BF74-4349CF327512}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatAdoptionMobileApp.Shared", "CatAdoptionMobileApp.Shared\CatAdoptionMobileApp.Shared.csproj", "{751AEF14-AE15-442B-BD2B-B7731AAB3E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatAdoptionMobileApp.EntityFramework", "CatAdoptionMobileApp.EntityFramework\CatAdoptionMobileApp.EntityFramework.csproj", "{6A6C207B-F305-460C-8B06-47DB7E870444}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatAdoptionMobileApp.Domain", "CatAdoptionMobileApp.Domain\CatAdoptionMobileApp.Domain.csproj", "{2ECD2047-D929-4C4A-945F-18E97FDAC02F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatAdoptionMobileApp.Api", "CatAdoptionMobileApp.Api\CatAdoptionMobileApp.Api.csproj", "{72F42EFD-3903-4667-B8FF-EBF19B086F76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3827C72A-C466-4CE0-BF74-4349CF327512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3827C72A-C466-4CE0-BF74-4349CF327512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3827C72A-C466-4CE0-BF74-4349CF327512}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3827C72A-C466-4CE0-BF74-4349CF327512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3827C72A-C466-4CE0-BF74-4349CF327512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3827C72A-C466-4CE0-BF74-4349CF327512}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{751AEF14-AE15-442B-BD2B-B7731AAB3E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751AEF14-AE15-442B-BD2B-B7731AAB3E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751AEF14-AE15-442B-BD2B-B7731AAB3E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751AEF14-AE15-442B-BD2B-B7731AAB3E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A6C207B-F305-460C-8B06-47DB7E870444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A6C207B-F305-460C-8B06-47DB7E870444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A6C207B-F305-460C-8B06-47DB7E870444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A6C207B-F305-460C-8B06-47DB7E870444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECD2047-D929-4C4A-945F-18E97FDAC02F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECD2047-D929-4C4A-945F-18E97FDAC02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECD2047-D929-4C4A-945F-18E97FDAC02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECD2047-D929-4C4A-945F-18E97FDAC02F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72F42EFD-3903-4667-B8FF-EBF19B086F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72F42EFD-3903-4667-B8FF-EBF19B086F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72F42EFD-3903-4667-B8FF-EBF19B086F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72F42EFD-3903-4667-B8FF-EBF19B086F76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5CA2DE66-826C-400E-B193-C54434B40BF6}
+	EndGlobalSection
+EndGlobal
