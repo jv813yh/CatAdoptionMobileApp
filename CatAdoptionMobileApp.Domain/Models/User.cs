@@ -1,8 +1,20 @@
-﻿namespace CatAdoptionMobileApp.Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CatAdoptionMobileApp.Domain.Models
 {
-    public class User
+    public class User : CommonObject
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Name is required.")]
+        [MaxLength(30, ErrorMessage = "Name cannot exceed 30 characters.")]
+        public string Name { get; set; }
+
+        [Required, MaxLength(100)]
+        public string Email { get; set; }
+
+        [Required, MaxLength(10)]
+        public string Salt { get; set; }
+
+        [Required, MaxLength(80)]
+        public string PasswordHash { get; set; }
     }
 }

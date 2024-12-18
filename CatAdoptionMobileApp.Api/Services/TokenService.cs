@@ -80,6 +80,7 @@ namespace CatAdoptionMobileApp.Api.Services
                 claims.AddRange(additionalClaims);
             }
 
+            // 
             return GenerateJWT(claims);
         }
 

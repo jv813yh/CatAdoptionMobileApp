@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CatAdoptionMobileApp.Shared\CatAdoptionMobileApp.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

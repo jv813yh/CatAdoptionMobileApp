@@ -1,3 +1,6 @@
+using CatAdoptionMobileApp.EntityFramework.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace CatAdoptionMobileApp.Api
 {
     public class Program
@@ -6,15 +9,35 @@ namespace CatAdoptionMobileApp.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            if(connectionString == null)
+            {
+                throw new InvalidOperationException("Connection string not found");
+            }
+
+            // Add services to the container.
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            // Add db context
+            builder.Services.AddDbContext<CatAdoptionDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString(connectionString));
+            });
+            builder.Services.AddDbContext<CatAdoptionDbContext>();
+
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                // Migration DB
+                ApplyDbMigrations(app.Services);
+
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
@@ -30,6 +53,18 @@ namespace CatAdoptionMobileApp.Api
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+
+        static void ApplyDbMigrations(IServiceProvider serviceProvider)
+        {
+            using var scope = serviceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<CatAdoptionDbContext>();
+
+            if(dbContext.Database.GetPendingMigrations().Any())
+            {
+                dbContext.Database.Migrate();
+            }
         }
     }
 }
