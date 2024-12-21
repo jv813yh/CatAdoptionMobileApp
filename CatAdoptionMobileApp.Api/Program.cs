@@ -15,23 +15,21 @@ namespace CatAdoptionMobileApp.Api
                 throw new InvalidOperationException("Connection string not found");
             }
 
+            // Add db context
+            builder.Services.AddDbContext<CatAdoptionDbContext>(options =>
+            {
+                options.UseSqlServer(connectionString);
+            });
+
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // Add db context
-            builder.Services.AddDbContext<CatAdoptionDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString(connectionString));
-            });
-            builder.Services.AddDbContext<CatAdoptionDbContext>();
-
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
             {
                 // Migration DB
                 ApplyDbMigrations(app.Services);
@@ -58,12 +56,14 @@ namespace CatAdoptionMobileApp.Api
 
         static void ApplyDbMigrations(IServiceProvider serviceProvider)
         {
-            using var scope = serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<CatAdoptionDbContext>();
-
-            if(dbContext.Database.GetPendingMigrations().Any())
+            using (var scope = serviceProvider.CreateScope())
             {
-                dbContext.Database.Migrate();
+                var dbContext = scope.ServiceProvider.GetRequiredService<CatAdoptionDbContext>();
+
+                if(dbContext.Database.GetPendingMigrations().Any())
+                {
+                    dbContext.Database.Migrate();
+                }
             }
         }
     }
