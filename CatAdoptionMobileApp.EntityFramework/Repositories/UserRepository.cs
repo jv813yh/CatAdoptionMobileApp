@@ -29,7 +29,8 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
             }
             catch (Exception ex)
             {
-                throw;
+                // Log database-related errors here ...
+                throw; // rethrowing to let higher layers handle it
             }
 
         }

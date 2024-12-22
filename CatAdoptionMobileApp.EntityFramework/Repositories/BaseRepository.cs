@@ -16,7 +16,11 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
 
             _currentDbSet = _catAdoptionDbContext.Set<TEntity>();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<TEntity?> GetByIdAsync(uint id)
         {
             try
@@ -28,10 +32,15 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
             catch (Exception ex)
             {
 
-                throw;
+                // TODO: Log database-related errors here
+                throw; // rethrowing to let higher layers handle it
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<TEntity>?> GetAll()
         {
             try
@@ -43,10 +52,16 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
             catch (Exception ex)
             {
 
-                throw;
+                // TODO: Log database-related errors here
+                throw; // rethrowing to let higher layers handle it
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task AddAsync(TEntity entity)
         {
             if (entity != null)
@@ -57,17 +72,23 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     {
                         await _currentDbSet.AddAsync(entity);
                         await _catAdoptionDbContext.SaveChangesAsync();
-                        transaction.Commit();
+                        await transaction.CommitAsync();
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback();
-                        throw;
+                        await transaction.RollbackAsync();
+                        // TODO: Log database-related errors here
+                        throw; // rethrowing to let higher layers handle it
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task UpdateAsync(TEntity entity)
         {
             if (entity != null)
@@ -78,17 +99,23 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     {
                         _currentDbSet.Update(entity);
                         await _catAdoptionDbContext.SaveChangesAsync();
-                        transaction.Commit();
+                        await transaction.CommitAsync();
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback();
-                        throw;
+                        await transaction.RollbackAsync();
+                        // TODO: Log database-related errors here
+                        throw; // rethrowing to let higher layers handle it
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeleteAsync(uint id)
         {
             var entity = await GetByIdAsync(id);
@@ -101,12 +128,13 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     {
                         _currentDbSet.Remove(entity);
                         await _catAdoptionDbContext.SaveChangesAsync();
-                        transaction.Commit();
+                        await transaction.CommitAsync();
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback();
-                        throw;
+                        await transaction.RollbackAsync();
+                        // TODO: Log database-related errors here
+                        throw; // rethrowing to let higher layers handle it
                     }
                 }
             }

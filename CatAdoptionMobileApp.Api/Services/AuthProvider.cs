@@ -1,20 +1,27 @@
-﻿using CatAdoptionMobileApp.Domain.Models;
+﻿using CatAdoptionMobileApp.Api.Services.Interfaces;
+using CatAdoptionMobileApp.Domain.Models;
+using CatAdoptionMobileApp.EntityFramework;
 using CatAdoptionMobileApp.EntityFramework.Repositories;
 using CatAdoptionMobileApp.Shared.Dtos;
 
 namespace CatAdoptionMobileApp.Api.Services
 {
-    public class AuthService
+    public class AuthProvider : IAuthService
     {
         private readonly UserRepository _userRepository;
         private readonly TokenService _tokenService;
 
-        public AuthService(UserRepository userRepository, TokenService tokenService)
+        public AuthProvider(UserRepository userRepository, TokenService tokenService)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loginDto"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<AuthResponseDto>> LoginAsync(LoginRequestDto loginDto)
         {
             // Find the user by email
@@ -38,6 +45,11 @@ namespace CatAdoptionMobileApp.Api.Services
             return ApiResponse<AuthResponseDto>.Success(new AuthResponseDto(user.Id, user.Name, token));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<AuthResponseDto>> RegisterAsync(RegisterRequestDto registerDto)
         {
             // Check if the Email already exists
@@ -60,7 +72,7 @@ namespace CatAdoptionMobileApp.Api.Services
             };
 
             // Add the user to the database
-            await _userRepository.UpdateAsync(newUser);
+            await _userRepository.AddAsync(newUser);
             // Generate JWT token
             var token = _tokenService.GenerateJWT(newUser);
             // Return the user id, name and token in the response as success
