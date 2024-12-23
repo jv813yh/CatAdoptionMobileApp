@@ -50,6 +50,11 @@ namespace CatAdoptionMobileApp.Api.Services
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public async Task<ApiResponse<CatListDto[]>> GetPopularCatsAsync(int count)
         {
             try

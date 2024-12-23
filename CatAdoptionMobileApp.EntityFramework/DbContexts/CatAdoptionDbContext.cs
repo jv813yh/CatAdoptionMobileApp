@@ -28,8 +28,8 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
             base.OnModelCreating(modelBuilder);
 
             // Define the composite key for UserAdoptions
-            modelBuilder.Entity<UserFavorites>()
-                .HasKey(uf => new { uf.UserId, uf.CatId });
+            //modelBuilder.Entity<UserFavorites>()
+            //    .HasKey(uf => new { uf.UserId, uf.CatId });
 
             // Initial data seeding for cats
             modelBuilder.Entity<Cat>()

@@ -4,16 +4,19 @@ using CatAdoptionMobileApp.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CatAdoptionMobileApp.EntityFramework.Migrations
+namespace CatAdoptionMobileApp.EntityFramework.CatAdoptionMobileApp.EntityFramework
 {
     [DbContext(typeof(CatAdoptionDbContext))]
-    partial class CatAdoptionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241222195844_UserFavoritesTableModified")]
+    partial class UserFavoritesTableModified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -314,17 +317,23 @@ namespace CatAdoptionMobileApp.EntityFramework.Migrations
                     b.Property<DateTime>("AdoptedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CatId")
+                    b.Property<int>("CatId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("CatId1")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId1")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CatId");
+                    b.HasIndex("CatId1");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserAdoptions");
                 });
@@ -337,17 +346,23 @@ namespace CatAdoptionMobileApp.EntityFramework.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CatId")
+                    b.Property<int>("CatId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("CatId1")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId1")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CatId");
+                    b.HasIndex("CatId1");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserFavorites");
                 });
@@ -356,13 +371,13 @@ namespace CatAdoptionMobileApp.EntityFramework.Migrations
                 {
                     b.HasOne("CatAdoptionMobileApp.Domain.Models.Cat", "Cat")
                         .WithMany()
-                        .HasForeignKey("CatId")
+                        .HasForeignKey("CatId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CatAdoptionMobileApp.Domain.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -375,13 +390,13 @@ namespace CatAdoptionMobileApp.EntityFramework.Migrations
                 {
                     b.HasOne("CatAdoptionMobileApp.Domain.Models.Cat", "Cat")
                         .WithMany()
-                        .HasForeignKey("CatId")
+                        .HasForeignKey("CatId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CatAdoptionMobileApp.Domain.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

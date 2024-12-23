@@ -16,6 +16,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
 
             _currentDbSet = _catAdoptionDbContext.Set<TEntity>();
         }
+
         /// <summary>
         /// 
         /// </summary>

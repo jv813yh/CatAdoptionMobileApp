@@ -4,16 +4,19 @@ using CatAdoptionMobileApp.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CatAdoptionMobileApp.EntityFramework.Migrations
+namespace CatAdoptionMobileApp.EntityFramework.CatAdoptionMobileApp.EntityFramework
 {
     [DbContext(typeof(CatAdoptionDbContext))]
-    partial class CatAdoptionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241222201527_UserAdoptionModified")]
+    partial class UserAdoptionModified
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
