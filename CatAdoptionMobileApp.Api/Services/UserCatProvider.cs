@@ -20,7 +20,7 @@ namespace CatAdoptionMobileApp.Api.Services
         /// <param name="userId"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse> ToggleCatFavoriteAsync(uint userId, uint catId)
+        public async Task<ApiResponse> ToggleCatFavoriteAsync(int userId, int catId)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace CatAdoptionMobileApp.Api.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetFavoriteCatsAsync(uint userId) 
+        public async Task<ApiResponse<CatListDto[]>> GetFavoriteCatsAsync(int userId) 
         {
             try
             {
@@ -57,7 +57,7 @@ namespace CatAdoptionMobileApp.Api.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetUserAdoptionCatsAsync(uint userId)
+        public async Task<ApiResponse<CatListDto[]>> GetUserAdoptionCatsAsync(int userId)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace CatAdoptionMobileApp.Api.Services
         /// <param name="userId"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<UserAdoption>> AdoptCatAsync(uint userId, uint catId)
+        public async Task<ApiResponse<UserAdoption>> AdoptCatAsync(int userId, int catId)
         {
             try
             {

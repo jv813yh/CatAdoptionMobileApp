@@ -1,5 +1,4 @@
 ﻿using CatAdoptionMobileApp.Shared.Dtos;
-using System.Threading.Tasks;
 
 namespace CatAdoptionMobileApp.Api.Services.Interfaces
 {
@@ -8,7 +7,7 @@ namespace CatAdoptionMobileApp.Api.Services.Interfaces
         Task<ApiResponse<CatListDto[]>> GetAllCatsAsync();
         Task<ApiResponse<CatListDto[]>> GetNewAddedCatsAsync(int count);
         Task<ApiResponse<CatListDto[]>> GetRandomCatsAsync(int count);
-        Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(uint id);
+        Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id);
         Task<ApiResponse<CatListDto[]>> GetPopularCatsAsync(int count);
     }
 }

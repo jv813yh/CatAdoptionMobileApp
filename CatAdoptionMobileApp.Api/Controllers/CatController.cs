@@ -31,8 +31,8 @@ namespace CatAdoptionMobileApp.Api.Controllers
             => await _catService.GetRandomCatsAsync(count);
 
         // GET api/cat/1
-        [HttpGet("{id:uint}")]
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(uint id)
+        [HttpGet("{id:int}")]
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id)
             => await _catService.GetCatDetailsAsync(id);
 
         // GET api/cat/popular/10

@@ -18,19 +18,5 @@ namespace CatAdoptionMobileApp.EntityFramework
                 Breed = cat.Breed,
                 ImageUrl = cat.ImageUrl
             };
-
-        /// <summary>
-        /// Selects a Cat entity and maps it to a CatDetailDto
-        /// </summary>
-        public static Expression<Func<Cat, CatDetailDto>> CatToCatDetailDto =>
-           cat => new CatDetailDto
-           {
-               Id = cat.Id,
-               Name = cat.Name,
-               Price = cat.Price,
-               Breed = cat.Breed,
-               ImageUrl = cat.ImageUrl,
-               Description = cat.Description
-           };
     }
 }

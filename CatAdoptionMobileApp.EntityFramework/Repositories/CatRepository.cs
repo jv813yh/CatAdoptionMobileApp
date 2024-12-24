@@ -117,7 +117,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(uint id)
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id)
         {
 
             using (var transaction = _dbContext.Database.BeginTransaction())

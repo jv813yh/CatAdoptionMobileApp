@@ -1,4 +1,4 @@
 ﻿namespace CatAdoptionMobileApp.Shared.Dtos
 {
-    public record AuthResponseDto(uint UserId, string Name, string Token);
+    public record AuthResponseDto(int UserId, string Name, string Token);
 } 

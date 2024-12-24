@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CatAdoptionMobileApp.Domain\CatAdoptionMobileApp.Domain.csproj" />
     <ProjectReference Include="..\CatAdoptionMobileApp.EntityFramework\CatAdoptionMobileApp.EntityFramework.csproj" />
   </ItemGroup>

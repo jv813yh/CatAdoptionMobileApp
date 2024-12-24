@@ -2,6 +2,7 @@ using CatAdoptionMobileApp.Api.Services;
 using CatAdoptionMobileApp.Api.Services.Interfaces;
 using CatAdoptionMobileApp.EntityFramework.DbContexts;
 using CatAdoptionMobileApp.EntityFramework.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 namespace CatAdoptionMobileApp.Api
@@ -17,6 +18,21 @@ namespace CatAdoptionMobileApp.Api
             {
                 throw new InvalidOperationException("Connection string not found");
             }
+
+            // Add authentication
+            builder.Services.AddAuthentication(options =>
+            {
+                // Set the default authentication scheme to JWT
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                // Set the default challenge scheme to JWT
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            })
+                // Add JWT bearer
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = TokenService.GetTokenValidationParameters(builder.Configuration);
+                });
 
             // Add db context
             builder.Services.AddDbContext<CatAdoptionDbContext>(options =>
@@ -36,7 +52,7 @@ namespace CatAdoptionMobileApp.Api
 
             // Add services
             builder.Services.AddTransient<IUserCatService, UserCatProvider>()
-                .AddTransient<ICatService, ICatService>()
+                .AddTransient<ICatService, CatProvider>()
                 .AddTransient<IAuthService, AuthProvider>()
                 .AddTransient<TokenService>();
 
@@ -56,13 +72,14 @@ namespace CatAdoptionMobileApp.Api
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.MapControllers();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

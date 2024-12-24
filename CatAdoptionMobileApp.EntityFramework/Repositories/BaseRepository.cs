@@ -22,7 +22,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TEntity?> GetByIdAsync(uint id)
+        public async Task<TEntity?> GetByIdAsync(int id)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task DeleteAsync(uint id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id);
 

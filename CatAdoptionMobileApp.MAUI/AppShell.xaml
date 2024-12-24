@@ -4,12 +4,32 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CatAdoptionMobileApp.MAUI"
+    xmlns:pages="clr-namespace:CatAdoptionMobileApp.MAUI.Pages"
     Shell.FlyoutBehavior="Disabled"
     Title="CatAdoptionMobileApp.MAUI">
 
     <ShellContent
-        Title="Home"
+        Title="Main"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate pages:HomePage}"
+        Route="HomePage" />
+
+
+    <ShellContent
+        ContentTemplate="{DataTemplate pages:OnboardingPage}"
+        Route="OnboardingPage"
+        Shell.NavBarIsVisible="False"
+        Shell.TabBarIsVisible="False"/>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate pages:LoginRegisterPage}"
+        Route="LoginRegisterPage"
+        Shell.NavBarIsVisible="False"
+        Shell.TabBarIsVisible="False"/>
 
 </Shell>

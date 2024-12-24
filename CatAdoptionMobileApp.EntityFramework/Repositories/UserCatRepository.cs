@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CatAdoptionMobileApp.EntityFramework.Repositories
 {
-    public class UserCatRepository : BaseRepository<UserFavorites>
+    public class UserCatRepository  : BaseRepository<UserFavorites>
     {
         private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
@@ -27,7 +27,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// <param name="userId"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse> ToggleUserCatFavoriteAsync(uint userId, uint catId)
+        public async Task<ApiResponse> ToggleUserCatFavoriteAsync(int userId, int catId)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -72,7 +72,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetUserFavoriteCatsAsync(uint userId)
+        public async Task<ApiResponse<CatListDto[]>> GetUserFavoriteCatsAsync(int userId)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetUserAdoptionCatsAsync(uint userId)
+        public async Task<ApiResponse<CatListDto[]>> GetUserAdoptionCatsAsync(int userId)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// <param name="userId"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<UserAdoption>> AdoptCatAsync(uint userId, uint catId)
+        public async Task<ApiResponse<UserAdoption>> AdoptCatAsync(int userId, int catId)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {

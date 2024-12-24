@@ -2,8 +2,8 @@
 {
     public class UserAdoption : CommonObject
     {
-        public uint UserId { get; set; }
-        public uint CatId { get; set; }
+        public int UserId { get; set; }
+        public int CatId { get; set; }
         public DateTime AdoptedOn { get; set; }
 
         public virtual User User { get; set; }
