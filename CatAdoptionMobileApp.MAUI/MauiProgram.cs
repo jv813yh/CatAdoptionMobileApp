@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
-
-namespace CatAdoptionMobileApp.MAUI
+﻿namespace CatAdoptionMobileApp.MAUI
 {
     public static class MauiProgram
     {
@@ -10,14 +7,27 @@ namespace CatAdoptionMobileApp.MAUI
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App>().ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("Ubuntu-Bold.ttf", "UbuntuBold");
+                fonts.AddFont("Ubuntu-Regular.ttf", "UbuntuRegular");
             })
             .UseMauiCommunityToolkit();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
+
+            RegisterAppDependencies(builder.Services);
+
             return builder.Build();
+        }
+
+        /// <summary>
+        /// Register the dependencies for the app
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        static void RegisterAppDependencies(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<LoginRegisterViewModel>()
+                             .AddTransient<LoginRegisterPage>();
         }
     }
 }

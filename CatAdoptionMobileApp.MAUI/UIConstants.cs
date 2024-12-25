@@ -2,6 +2,6 @@
 {
     public class UIConstants
     {
-        public const string OnBoardingShown = "onboardingShown";
+        public const string OnBoardingShown = "onboardingshown";
     }
 }

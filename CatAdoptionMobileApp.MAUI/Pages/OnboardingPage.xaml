@@ -1,12 +1,60 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CatAdoptionMobileApp.MAUI.Pages.OnboardingPage"
-             Title="OnboardingPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="CatAdoptionMobileApp.MAUI.Pages.OnboardingPage">
+
+    <Grid RowDefinitions="*,*">
+
+        <Border Grid.Row="0"
+                StrokeShape="RoundRectangle 150"
+                StrokeThickness="8"
+                Stroke="{StaticResource Primary}"
+                WidthRequest="300"
+                HeightRequest="300"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+
+            <Image Source="catonboarding.jpg"
+                   WidthRequest="300"
+                   HeightRequest="300"
+                   Aspect="AspectFill"
+                   HorizontalOptions="Center"/>
+            
+
+            <Border.Shadow>
+                <Shadow Brush="{StaticResource Primary}"
+                        Radius="150"/>
+            </Border.Shadow>
+        </Border>
+
+        <Grid Grid.Row="1"
+              RowDefinitions="auto,auto"
+              Padding="20">
+
+            <VerticalStackLayout Grid.Row="0"
+                                 Spacing="25">
+
+                <Label Text="Find your favorite friend close to you :)"
+                       FontSize="40"
+                       HorizontalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       LineHeight="1.2"/>
+
+                <Label Text="Find your new best friend at our storage! We have a wide range of selected lovable and cute cats, ready for adoption. "
+                       FontSize="15"
+                       HorizontalTextAlignment="Center"
+                       LineHeight="1.4"/>
+
+ 
+
+            </VerticalStackLayout>
+
+            <Button Grid.Row="1"
+                    Text="Explore"
+                    Style="{StaticResource btnPrimary}"
+                    Clicked="ButtonClicked">
+                
+            </Button>
+
+        </Grid>
+    </Grid>
 </ContentPage>

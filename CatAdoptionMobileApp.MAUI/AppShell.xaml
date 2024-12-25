@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
+<Shell 
     x:Class="CatAdoptionMobileApp.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:local="clr-namespace:CatAdoptionMobileApp.MAUI"
     xmlns:pages="clr-namespace:CatAdoptionMobileApp.MAUI.Pages"
-    Shell.FlyoutBehavior="Disabled"
-    Title="CatAdoptionMobileApp.MAUI">
+    Shell.FlyoutBehavior="Disabled">
+
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}"
+                                   StatusBarStyle="LightContent"/>
+    </Shell.Behaviors>
+
+
+    <!--<FlyoutItem
+            Title="Home"
+            Icon="home.png"
+            Route="HomePage" >
+                <ShellContent ContentTemplate="{DataTemplate pages:HomePage}"/>
+    </FlyoutItem>-->
 
     <ShellContent
         Title="Main"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate pages:HomePage}"
-        Route="HomePage" />
-
 
     <ShellContent
         ContentTemplate="{DataTemplate pages:OnboardingPage}"
@@ -31,5 +37,33 @@
         Route="LoginRegisterPage"
         Shell.NavBarIsVisible="False"
         Shell.TabBarIsVisible="False"/>
+
+    <TabBar>
+        
+        <ShellContent
+            Title="Home"
+            Icon="home.png"
+            ContentTemplate="{DataTemplate pages:HomePage}"
+            Route="HomePage" />
+
+        <ShellContent
+            Title="All Cats"
+            Icon="list.svg"
+            ContentTemplate="{DataTemplate pages:AllCatsPage}"
+            Route="AllCatsPage" />
+
+        <ShellContent
+            Title="Favorites"
+            Icon="heart.svg"
+            ContentTemplate="{DataTemplate pages:FavoritesPage}"
+            Route="FavoritesPage" />
+
+        <ShellContent
+            Title="Profile"
+            Icon="user.svg"
+            ContentTemplate="{DataTemplate pages:ProfilePage}"
+            Route="ProfilePage" />
+
+    </TabBar>
 
 </Shell>

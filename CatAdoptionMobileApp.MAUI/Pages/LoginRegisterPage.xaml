@@ -2,11 +2,91 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CatAdoptionMobileApp.MAUI.Pages.LoginRegisterPage"
-             Title="LoginRegisterPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="LoginRegisterPage"
+             BackgroundColor="{StaticResource BgColor}">
+
+    <Grid RowDefinitions="2*,3*">
+
+        <Border Grid.Row="0"
+               StrokeShape="RoundRectangle 150"
+               StrokeThickness="8"
+               Stroke="{StaticResource Primary}"
+               WidthRequest="250"
+               HeightRequest="250"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+
+            <Image Source="catloginregister.jpg"
+                  WidthRequest="250"
+                  HeightRequest="250"
+                  Aspect="AspectFill"
+                  HorizontalOptions="Center"/>
+
+
+            <Border.Shadow>
+                <Shadow Brush="{StaticResource Primary}"
+                   Radius="150"/>
+            </Border.Shadow>
+        </Border>
+
+        <ScrollView Grid.Row="1"
+                    Padding="20">
+            
+            <VerticalStackLayout Spacing="20">
+
+                <Grid ColumnDefinitions="*,auto">
+                    
+                    <Label Text="Login"
+                           Grid.Column="0"
+                           FontSize="40"
+                           FontAttributes="Bold"/>
+
+                    <Label Text="Switch to Register"
+                           Grid.Column="1"
+                           VerticalOptions="Center"
+                           HorizontalOptions="End"
+                           Padding="10"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextDecorations="Underline"/>
+                </Grid>
+
+                <VerticalStackLayout Spacing="10">
+                    
+                    <Entry Placeholder="Enter name"
+                           PlaceholderColor="{StaticResource Primary}"/>
+
+                    <Entry Placeholder="Enter email"
+                           PlaceholderColor="{StaticResource Primary}"/>
+
+                    <Entry Placeholder="Enter password"
+                           PlaceholderColor="{StaticResource Primary}"
+                           IsPassword="True"/>
+
+                    <Button Text="Login"
+                            Command="{Binding SubmitCommand}"
+                            Style="{StaticResource btnPrimary}"/>
+                </VerticalStackLayout>
+
+                <Grid ColumnDefinitions="*,auto,*"
+                      ColumnSpacing="5">
+                    <BoxView Grid.Column="0"
+                             HeightRequest="1"
+                             Color="{StaticResource Primary}"/>
+
+                    <Button Grid.Column="1"
+                            Text="Skip for now"
+                            HorizontalOptions="Center"
+                            Padding="25,5"
+                            HeightRequest="30"
+                            Command="{Binding SkipForNowCommand}"/>
+
+                    <BoxView Grid.Column="2"
+                            HeightRequest="1"
+                            Color="{StaticResource Primary}"/>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
 </ContentPage>
