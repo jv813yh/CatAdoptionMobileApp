@@ -10,34 +10,43 @@
         private LoginRegisterModel _loginRegisterModel;
 
         [ObservableProperty]
-        private bool? _isFirstTime;
+        private bool _isFirstTime;
 
-        public void Initialize()
+        public LoginRegisterViewModel()
         {
-            if(IsFirstTime.HasValue && IsFirstTime.Value)
+            _loginRegisterModel = new LoginRegisterModel();
+        }
+
+        partial void OnIsFirstTimeChanging(bool value)
+        {
+            if (value)
             {
                 IsRegistrationMode = true;
             }
         }
 
+        private bool ValidateInput()
+        {
+            if (IsRegistrationMode &&
+                string.IsNullOrWhiteSpace(LoginRegisterModel.Name)
+                || string.IsNullOrWhiteSpace(LoginRegisterModel.Email)
+                || string.IsNullOrWhiteSpace(LoginRegisterModel.Password))
+            {
+                return false;
+            }
+            else if (string.IsNullOrWhiteSpace(LoginRegisterModel.Email)
+                     || string.IsNullOrWhiteSpace(LoginRegisterModel.Password))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         [RelayCommand]
         private async Task SkipForNowAsync()
         {
-            try
-            {
-                SetTrueBoolValues();
-                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Eror while skip for now:{ex.Message}");
-                await Shell.Current.DisplayAlert("Error", "An error occurred while skip for now", "Ok");
-            }
-            finally
-            {
-                SetFalseBoolValues();
-            }
+           await GoToPageAsync($"//{nameof(HomePage)}");
         }
 
         [RelayCommand]  
@@ -45,13 +54,11 @@
         {
             try
             {
-                if(LoginRegisterModel.Validate(IsRegistrationMode))
+                if(!ValidateInput())
                 {
-                    await Toast.Make("All fields are mandatory").Show();
-
+                    await ShowToastMessageAsync("Please fill all the fields");
                     return;
                 }
-
 
                 // Make Api call to login or register user
 
@@ -60,7 +67,7 @@
             catch (Exception ex)
             {
                 Debug.WriteLine($"Eror while submit command: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error", "An error occurred while submit command", "Ok");
+                await ShowAlertMessageAsync("Error", "An error occured while processing your request", "Ok");
             }
             finally
             {

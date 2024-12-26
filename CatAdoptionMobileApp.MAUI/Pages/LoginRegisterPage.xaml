@@ -35,11 +35,19 @@
             <VerticalStackLayout Spacing="20">
 
                 <Grid ColumnDefinitions="*,auto">
-                    
+
                     <Label Text="Login"
                            Grid.Column="0"
                            FontSize="40"
-                           FontAttributes="Bold"/>
+                           FontAttributes="Bold">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding IsRegistrationMode}"
+                                         Value="True">
+                                <Setter Property="Text" Value="Register"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
 
                     <Label Text="Switch to Register"
                            Grid.Column="1"
@@ -48,24 +56,48 @@
                            Padding="10"
                            FontSize="16"
                            FontAttributes="Bold"
-                           TextDecorations="Underline"/>
+                           TextDecorations="Underline">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Value="True"
+                                         Binding="{Binding IsRegistrationMode}">
+                                <Setter Property="Text" Value="Switch to Login"/>
+                            </DataTrigger>
+                        </Label.Triggers>
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToogleModeCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Grid>
 
                 <VerticalStackLayout Spacing="10">
-                    
+
                     <Entry Placeholder="Enter name"
-                           PlaceholderColor="{StaticResource Primary}"/>
+                           PlaceholderColor="{StaticResource Primary}"
+                           IsVisible="{Binding IsRegistrationMode}"
+                           Text="{Binding LoginRegisterModel.Name}"/>
 
                     <Entry Placeholder="Enter email"
-                           PlaceholderColor="{StaticResource Primary}"/>
+                           PlaceholderColor="{StaticResource Primary}"
+                           Text="{Binding LoginRegisterModel.Email}"/>
 
                     <Entry Placeholder="Enter password"
                            PlaceholderColor="{StaticResource Primary}"
+                           Text="{Binding LoginRegisterModel.Password}"
                            IsPassword="True"/>
 
                     <Button Text="Login"
                             Command="{Binding SubmitCommand}"
-                            Style="{StaticResource btnPrimary}"/>
+                            Style="{StaticResource btnPrimary}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{Binding IsRegistrationMode}"
+                                         Value="True">
+                                <Setter Property="Text" Value="Register"/>
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
                 </VerticalStackLayout>
 
                 <Grid ColumnDefinitions="*,auto,*"
@@ -87,6 +119,13 @@
                 </Grid>
             </VerticalStackLayout>
         </ScrollView>
+
+        <ActivityIndicator VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           IsRunning="{Binding IsBusy}"
+                           Color="{StaticResource Primary}"
+                           HeightRequest="30"
+                           WidthRequest="30"/>
 
     </Grid>
 </ContentPage>

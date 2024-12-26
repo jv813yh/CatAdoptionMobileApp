@@ -49,6 +49,7 @@
             </VerticalStackLayout>
 
             <Button Grid.Row="1"
+                    Margin="0,20,0,0"
                     Text="Explore"
                     Style="{StaticResource btnPrimary}"
                     Clicked="ButtonClicked">
