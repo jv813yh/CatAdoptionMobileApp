@@ -1,6 +1,4 @@
-﻿using CatAdoptionMobileApp.MAUI.Pages;
-
-namespace CatAdoptionMobileApp.MAUI
+﻿namespace CatAdoptionMobileApp.MAUI
 {
     public partial class MainPage : ContentPage
     {

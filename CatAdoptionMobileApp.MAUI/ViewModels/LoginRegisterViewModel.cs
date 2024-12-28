@@ -3,6 +3,9 @@
     [QueryProperty(nameof(IsFirstTime), nameof(IsFirstTime))]
     public partial class LoginRegisterViewModel : BaseViewModel
     {
+        // Injected services for login and registration
+        private readonly AuthProvider _authProvider;
+
         [ObservableProperty]
         private bool _isRegistrationMode;
 
@@ -12,8 +15,9 @@
         [ObservableProperty]
         private bool _isFirstTime;
 
-        public LoginRegisterViewModel()
+        public LoginRegisterViewModel(AuthProvider authProvider)
         {
+            _authProvider = authProvider;
             _loginRegisterModel = new LoginRegisterModel();
         }
 
@@ -59,6 +63,8 @@
                     await ShowToastMessageAsync("Please fill all the fields");
                     return;
                 }
+
+                SetTrueBoolValues();
 
                 // Make Api call to login or register user
 

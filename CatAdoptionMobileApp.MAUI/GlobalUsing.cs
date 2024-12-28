@@ -1,9 +1,16 @@
-﻿global using CatAdoptionMobileApp.MAUI.Models;
+﻿global using CatAdoptionMobileApp.Domain.Models;
+global using CatAdoptionMobileApp.MAUI.Models;
 global using CatAdoptionMobileApp.MAUI.Pages;
+global using CatAdoptionMobileApp.MAUI.Services;
+global using CatAdoptionMobileApp.MAUI.Services.Queries;
 global using CatAdoptionMobileApp.MAUI.ViewModels;
+global using CatAdoptionMobileApp.Shared;
+global using CatAdoptionMobileApp.Shared.Dtos;
 global using CommunityToolkit.Maui;
 global using CommunityToolkit.Maui.Alerts;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using CommunityToolkit.Mvvm.Input;
 global using Microsoft.Extensions.Logging;
+global using Refit;
 global using System.Diagnostics;
+global using System.Text.Json;
