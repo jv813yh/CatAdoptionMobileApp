@@ -31,7 +31,9 @@
         {
             serviceCollection.AddTransient<LoginRegisterViewModel>()
                              .AddTransient<LoginRegisterPage>()
-                             .AddSingleton<CommonService>();
+                             .AddSingleton<CommonService>()
+                             .AddSingleton<IAuthService, AuthProvider>()
+                             .AddSingleton<AuthProvider>();
         }
 
         /// <summary>

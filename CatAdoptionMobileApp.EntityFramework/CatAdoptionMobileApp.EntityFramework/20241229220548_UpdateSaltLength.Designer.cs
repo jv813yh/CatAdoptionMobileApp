@@ -4,6 +4,7 @@ using CatAdoptionMobileApp.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatAdoptionMobileApp.EntityFramework.CatAdoptionMobileApp.EntityFramework
 {
     [DbContext(typeof(CatAdoptionDbContext))]
-    partial class CatAdoptionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241229220548_UpdateSaltLength")]
+    partial class UpdateSaltLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

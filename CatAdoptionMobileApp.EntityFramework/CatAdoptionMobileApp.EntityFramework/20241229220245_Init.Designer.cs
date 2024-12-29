@@ -4,6 +4,7 @@ using CatAdoptionMobileApp.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatAdoptionMobileApp.EntityFramework.CatAdoptionMobileApp.EntityFramework
 {
     [DbContext(typeof(CatAdoptionDbContext))]
-    partial class CatAdoptionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241229220245_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,8 +298,8 @@ namespace CatAdoptionMobileApp.EntityFramework.CatAdoptionMobileApp.EntityFramew
 
                     b.Property<string>("Salt")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

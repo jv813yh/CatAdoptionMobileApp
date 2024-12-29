@@ -11,10 +11,10 @@ namespace CatAdoptionMobileApp.Domain.Models
         [Required, MaxLength(100)]
         public string Email { get; set; }
 
-        [Required, MaxLength(10)]
+        [Required, MaxLength(200)]
         public string Salt { get; set; }
 
-        [Required, MaxLength(80)]
+        [Required, MaxLength(100)]
         public string PasswordHash { get; set; }
     }
 }

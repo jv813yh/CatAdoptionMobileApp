@@ -3,8 +3,8 @@
     [QueryProperty(nameof(IsFirstTime), nameof(IsFirstTime))]
     public partial class LoginRegisterViewModel : BaseViewModel
     {
-        // Injected services for login and registration
-        private readonly AuthProvider _authProvider;
+        // Injected services for authentication, logout, user info ...
+        private readonly IAuthService _authService;
 
         [ObservableProperty]
         private bool _isRegistrationMode;
@@ -15,9 +15,9 @@
         [ObservableProperty]
         private bool _isFirstTime;
 
-        public LoginRegisterViewModel(AuthProvider authProvider)
+        public LoginRegisterViewModel(IAuthService authService)
         {
-            _authProvider = authProvider;
+            _authService = authService;
             _loginRegisterModel = new LoginRegisterModel();
         }
 
@@ -66,9 +66,14 @@
 
                 SetTrueBoolValues();
 
-                // Make Api call to login or register user
+                // Make Api call to login or register user according to the _loginRegisterModel
+                var response = await _authService.LoginRegisterAsync(LoginRegisterModel);
 
-                await SkipForNowAsync();
+                if(response)
+                {
+                    SetFalseBoolValues();
+                    await SkipForNowAsync();
+                }
             }
             catch (Exception ex)
             {

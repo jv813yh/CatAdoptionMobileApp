@@ -65,7 +65,12 @@
 
 	<ItemGroup>
 	  <Folder Include="Controls\" />
-	  <Folder Include="Services\" />
+	  <Folder Include="Http\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\CatAdoptionMobileApp.Domain\CatAdoptionMobileApp.Domain.csproj" />
+	  <ProjectReference Include="..\CatAdoptionMobileApp.Shared\CatAdoptionMobileApp.Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

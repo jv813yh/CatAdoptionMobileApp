@@ -15,7 +15,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         // Find the user by email
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            if(!string.IsNullOrEmpty(email))
+            if(string.IsNullOrEmpty(email))
             {
                 return null;
             }

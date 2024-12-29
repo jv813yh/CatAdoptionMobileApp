@@ -71,10 +71,18 @@ namespace CatAdoptionMobileApp.Api.Services
                 Salt = salt
             };
 
-            // Add the user to the database
-            await _userRepository.AddAsync(newUser);
             // Generate JWT token
             var token = _tokenService.GenerateJWT(newUser);
+            if(token == null)
+            {
+                return ApiResponse<AuthResponseDto>.Fail("Token generation failed");
+            }
+            else
+            {
+                // Add the user to the database
+                await _userRepository.AddAsync(newUser);
+            }
+
             // Return the user id, name and token in the response as success
             return ApiResponse<AuthResponseDto>.Success(new AuthResponseDto(newUser.Id, newUser.Name, token));
         }

@@ -6,6 +6,7 @@ global using CatAdoptionMobileApp.MAUI.Services.Queries;
 global using CatAdoptionMobileApp.MAUI.ViewModels;
 global using CatAdoptionMobileApp.Shared;
 global using CatAdoptionMobileApp.Shared.Dtos;
+global using CatAdoptionMobileApp.MAUI.Services.Interfaces;
 global using CommunityToolkit.Maui;
 global using CommunityToolkit.Maui.Alerts;
 global using CommunityToolkit.Mvvm.ComponentModel;

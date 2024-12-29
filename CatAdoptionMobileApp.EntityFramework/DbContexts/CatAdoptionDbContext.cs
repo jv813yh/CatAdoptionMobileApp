@@ -34,6 +34,12 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
             // Initial data seeding for cats
             modelBuilder.Entity<Cat>()
                 .HasData(InitialCatsData());
+
+            //// Define the maximum length for user properties Salt and PasswordHash
+            //modelBuilder.Entity<User>().Property(u => 
+            //    u.Salt).HasMaxLength(100);
+            //modelBuilder.Entity<User>().Property(u =>
+            //    u.PasswordHash).HasMaxLength(100);
         }
 
         /// <summary>
