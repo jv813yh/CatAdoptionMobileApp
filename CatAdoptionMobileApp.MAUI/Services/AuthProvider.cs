@@ -21,45 +21,55 @@
         /// </summary>
         /// <param name="loginRegisterModel"></param>
         /// <returns> Return the response status </returns>
-        public async Task<bool> LoginRegisterAsync(LoginRegisterModel loginRegisterModel)
+        public async Task<bool> LoginRegisterAsync(LoginRegisterModel loginRegisterModel, bool isRegistration)
         {
             Shared.Dtos.ApiResponse<AuthResponseDto> response;
 
-            if (loginRegisterModel.IsNewUser)
+            try
             {
-                // Try to register the user
-                response = await _authApi.RegisterAsync(new RegisterRequestDto
+                if (isRegistration)
                 {
-                    Name = loginRegisterModel.Name,
-                    Email = loginRegisterModel.Email,
-                    Password = loginRegisterModel.Password
-                });
-            }
-            else
-            {
-                // Try to login the user
-                response = await _authApi.LoginAsync(new LoginRequestDto
+                    // Try to register the user
+                    response = await _authApi.RegisterAsync(new RegisterRequestDto
+                    {
+                        Name = loginRegisterModel.Name,
+                        Email = loginRegisterModel.Email,
+                        Password = loginRegisterModel.Password
+                    });
+                }
+                else
                 {
-                    Email = loginRegisterModel.Email,
-                    Password = loginRegisterModel.Password
-                });
-            }
+                    // Try to login the user
+                    response = await _authApi.LoginAsync(new LoginRequestDto
+                    {
+                        Email = loginRegisterModel.Email,
+                        Password = loginRegisterModel.Password
+                    });
+                }
 
-            // Check if the response is not successful
-            if (!response.IsSuccess)
+                // Check if the response is not successful
+                if (!response.IsSuccess)
+                {
+                    // Handle the error
+                    await App.Current.MainPage.DisplayAlert("Login/Register alert: ", response.Message, "OK");
+                    Debug.WriteLine($"Error - Login/Register:\nData: {response.Data}\nwith message: {response.Message}");
+                    return response.IsSuccess;
+                }
+
+                // Create a new LoggedInUser object and save the user info to the preferences
+                SaveUserToPreferences(new LoggedInUser(response.Data.UserId, response.Data.Name, response.Data.Token));
+                // Save the token to the CommonService
+                _commonService.SetToken(response.Data.Token);
+            }
+            catch (ApiException apiEx)
             {
-                // Handle the error
-                await App.Current.MainPage.DisplayAlert("Error - Api", response.Message, "OK");
-                return response.IsSuccess;
+                await App.Current.MainPage.DisplayAlert("Login/Register alert: ", apiEx.Message, "OK");
+                Debug.WriteLine($"Error - Login/Register: {apiEx.Content}");
+                return false;
             }
-
-            // Create a new LoggedInUser object and save the user info to the preferences
-            SaveUserToPreferences(new LoggedInUser(response.Data.UserId, response.Data.Name, response.Data.Token));
-            // Save the token to the CommonService
-            _commonService.SetToken(response.Data.Token);
 
             // Return the response status
-            return response.IsSuccess;
+            return true;
         }
 
         /// <summary>

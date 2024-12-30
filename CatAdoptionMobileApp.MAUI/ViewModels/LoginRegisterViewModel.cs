@@ -66,8 +66,8 @@
 
                 SetTrueBoolValues();
 
-                // Make Api call to login or register user according to the _loginRegisterModel
-                var response = await _authService.LoginRegisterAsync(LoginRegisterModel);
+                // Make Api call to login or register user 
+                var response = await _authService.LoginRegisterAsync(LoginRegisterModel, IsRegistrationMode);
 
                 if(response)
                 {

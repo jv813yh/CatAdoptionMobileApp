@@ -59,7 +59,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     Breed = "Siamese",
                     Description = "Fluffy is a very friendly cat. She loves to play with kids and other cats. She is very active and loves to be around people.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/white-and-grey-kitten-on-brown-and-black-leopard-print-textile-45201/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_1280.jpg",
                 },
                 new Cat
                 {
@@ -70,7 +70,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2024, 5, 1),
                     Description = "Whiskers is a very calm and quiet cat. He loves to sleep and relax. He is very friendly and loves to be pet",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/grey-and-white-short-fur-cat-104827/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2022/01/18/07/38/cat-6946505_1280.jpg",
                 },
                 new Cat
                 {
@@ -81,7 +81,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 9, 1),
                     Description = "Mittens is a very playful cat. She loves to run around and play with toys. She is very friendly and loves to be around people.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/selective-focus-photography-of-orange-tabby-cat-1170986/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2021/10/27/19/09/cat-6748193_1280.jpg",
                 },
                 new Cat
                 {
@@ -92,7 +92,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2024, 8, 15),
                     Description = "Socks is a quiet and dignified cat. She enjoys spending time with her family and has a soft, round face.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/short-coated-gray-cat-20787/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2022/01/18/07/36/cat-6946498_1280.jpg",
                 },
                 new Cat
                 {
@@ -103,7 +103,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 6, 1),
                     Description = "Bella is an energetic and curious cat. She loves to explore and is very intelligent, often figuring out how to open doors.",
                     Gender = Gender.Female,
-                    ImageUrl = "https://www.pexels.com/photo/photo-of-orange-tabby-cat-with-red-handkerchief-1741205/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2022/06/20/16/54/cat-7274205_1280.jpg"
                 },
                 new Cat
                 {
@@ -114,7 +114,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 12, 1),
                     Description = "Ginger is a sweet, calm cat who loves to be pampered. She enjoys napping in the sun and curling up on soft blankets.",
                     Gender = Gender.Female,
-                    ImageUrl = "https://www.pexels.com/photo/cute-gray-kitten-standing-on-a-wooden-flooring-774731/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2023/09/21/17/05/european-shorthair-8267220_1280.jpg",
                 },
                 new Cat
                 {
@@ -125,7 +125,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 11, 19),
                     Description = "Smokey is a quiet, reserved cat. He is known for his beautiful silvery coat and enjoys being petted when he’s in the mood.",
                     Gender = Gender.Female,
-                    ImageUrl = "https://www.pexels.com/photo/low-angle-shot-of-a-tabby-cat-208984/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2021/12/01/18/17/cat-6838844_1280.jpg",
                 },
                 new Cat
                 {
@@ -136,7 +136,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 10, 1),
                     Description = "Oliver is a gentle giant with a calm and loving nature. He’s very affectionate and loves to be held like a baby.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/grey-fur-kitten-127028/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2023/04/07/07/14/cat-7905702_1280.jpg",
                 },
                 new Cat
                 {
@@ -147,7 +147,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 7, 1),
                     Description = "Luna is a playful and active cat. She loves to climb and jump, and she is always full of energy.",
                     Gender = Gender.Female,
-                    ImageUrl = "https://www.pexels.com/photo/photo-of-british-shorthair-cat-sitting-on-grass-field-1521306/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2022/11/11/09/26/cat-7584624_1280.jpg",
                 },
                 new Cat
                 {
@@ -158,7 +158,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2024, 4, 4),
                     Description = "Milo is an outgoing and social cat. Despite having no fur, he is very warm and enjoys being around people.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/closeup-up-photography-of-tri-color-kitten-691583/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2015/11/16/22/14/cat-1046544_1280.jpg",
                 },
                 new Cat
                 {
@@ -169,7 +169,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 5, 3),
                     Description = "Toby is a calm and loving cat with distinctive folded ears. He enjoys lounging around and being spoiled with treats.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/close-up-photo-of-white-cat-1485968/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2017/08/07/12/27/cat-2603300_1280.jpg",
                 },
                 new Cat
                 {
@@ -180,7 +180,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 8, 15),
                     Description = "Chloe is an elegant cat with a luxurious coat. She loves being pampered and enjoys a good scratch behind the ears.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/white-and-brown-cat-1687831/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2020/11/22/17/28/cat-5767334_1280.jpg",
                 },
                 new Cat
                 {
@@ -191,7 +191,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2024, 9, 1),
                     Description = "Leo is an affectionate and playful cat. He loves attention and follows his owner around the house.",
                     Gender = Gender.Male,
-                    ImageUrl = "https://www.pexels.com/photo/photo-of-cat-climbing-on-tree-1653357/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2022/07/25/15/18/cat-7344042_1280.jpg",
                 },
                 new Cat
                 {
@@ -202,7 +202,7 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
                     DateOfBirth = new DateTime(2023, 11, 1),
                     Description = "Penny is a lively and graceful cat with a striking spotted coat. She’s very active and loves to play with interactive toys.",
                     Gender = Gender.Female,
-                    ImageUrl = "https://www.pexels.com/photo/white-and-black-kitten-lying-on-tiles-479009/",
+                    ImageUrl = "https://cdn.pixabay.com/photo/2019/06/08/17/02/cat-4260536_1280.jpg",
                 },
             };
 

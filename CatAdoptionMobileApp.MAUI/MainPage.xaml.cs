@@ -13,11 +13,9 @@
         {
             base.OnAppearing();
 
-            //await Shell.Current.GoToAsync($"//{nameof(OnboardingPage)}");
-
             if (Preferences.Default.ContainsKey(UIConstants.OnBoardingShown))
             {
-                await Shell.Current.GoToAsync($"//{nameof(LoginRegisterPage)}");
+                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
             }
             else
             {

@@ -2,11 +2,144 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CatAdoptionMobileApp.MAUI.Pages.HomePage"
-             Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="CatsHorizontalListTemplate">
+                <VerticalStackLayout Spacing="2">
+                    <Border HeightRequest="85"
+                            WidthRequest="85"
+                            StrokeShape="RoundRectangle 60"
+                            StrokeThickness="2">
+                        <Image Source="{Binding ImageUrl}"
+                               HeightRequest="85"
+                               WidthRequest="85"
+                               Aspect="AspectFill"/>
+                    </Border>
+
+                    <Label Text="{Binding Name}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="{StaticResource Primary}"/>
+                </VerticalStackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="30, *">
+
+        <VerticalStackLayout Grid.Row="0"
+                             Padding="10">
+            <Label Text="{Binding UserName, StringFormat='Hello {0}'}"
+                   TextColor="{StaticResource Primary}"
+                   FontSize="18"
+                   FontAttributes="Bold"/>
+
+        </VerticalStackLayout>
+
+        <ScrollView Grid.Row="1">
+
+            <VerticalStackLayout Padding="5">
+
+                <IndicatorView x:Name="NewAddedCatsIndicatorView"
+                               Margin="7"
+                               HorizontalOptions="Center"
+                               IndicatorColor="{StaticResource Secondary}"
+                               SelectedIndicatorColor="{StaticResource Primary}"/>
+                
+                <CarouselView ItemsSource="{Binding NewAddedCats}"
+                              IndicatorView="NewAddedCatsIndicatorView">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="*,auto,auto"
+                                  RowSpacing="5">
+
+                                <VerticalStackLayout Grid.Row="0">
+                                
+                                    <Border HeightRequest="250"
+                                            WidthRequest="250"
+                                            StrokeShape="RoundRectangle 60"
+                                            StrokeThickness="2">
+                                        <Image Source="{Binding ImageUrl}"
+                                               HeightRequest="250"
+                                               WidthRequest="250"
+                                               Aspect="AspectFill"/>
+                                    </Border>
+
+                                    <Label Text="{Binding Name}"
+                                           FontSize="22"
+                                           Padding="10,10,10,5"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           TextColor="{StaticResource Primary}"/>
+
+                                    <Label Text="{Binding Price, StringFormat='{0}€'}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                
+                </CarouselView>
+
+                <VerticalStackLayout Padding="10">
+
+                    <Label Text="Popular Cats"
+                           FontSize="22"
+                           Margin="0,0,0,5"
+                           TextDecorations="Underline"
+                           FontAttributes="Bold"/>
+
+                    <CollectionView ItemsSource="{Binding PopularCats}"
+                                    ItemTemplate="{StaticResource CatsHorizontalListTemplate}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"
+                                               ItemSpacing="10"/>
+                            
+                        </CollectionView.ItemsLayout>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Padding="10">
+
+                    <Label Text="Random Cats"
+                           FontSize="22"
+                           Margin="0,0,0,10"
+                           TextDecorations="Underline"
+                           FontAttributes="Bold"/>
+
+                    <CollectionView ItemsSource="{Binding RandomCats}"
+                                    ItemTemplate="{StaticResource CatsHorizontalListTemplate}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"
+                                  ItemSpacing="10"/>
+
+                        </CollectionView.ItemsLayout>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
+
+
+            </VerticalStackLayout>
+            
+
+        </ScrollView>
+
+        <Grid Grid.RowSpan="2"
+              IsVisible="{Binding IsBusy}">
+            <BoxView Color="{StaticResource Primary}"
+                     Opacity="0.7"/>
+
+            <ActivityIndicator IsRunning="True"
+                               Color="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+        </Grid>
+    </Grid>
 </ContentPage>

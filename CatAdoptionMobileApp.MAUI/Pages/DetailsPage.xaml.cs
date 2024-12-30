@@ -2,8 +2,11 @@ namespace CatAdoptionMobileApp.MAUI.Pages;
 
 public partial class DetailsPage : ContentPage
 {
-	public DetailsPage()
+	private readonly DetailsViewModel _viewModel;
+    public DetailsPage(DetailsViewModel detailsViewModel)
 	{
 		InitializeComponent();
-	}
+        _viewModel = detailsViewModel;
+        BindingContext = _viewModel;
+    }
 }

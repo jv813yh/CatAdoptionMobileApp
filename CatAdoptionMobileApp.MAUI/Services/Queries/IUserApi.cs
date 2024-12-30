@@ -8,7 +8,7 @@
     public interface IUserApi
     {
         // POST api/user/favorite/1
-        [Post("/api/user/favorite/{catId:int}")]
+        [Post("/api/user/favorite/{catId}")]
         Task<ApiResponse> ToggleCatFavoriteAsync(int catId);
 
         // GET api/user/favorite
@@ -20,7 +20,7 @@
         Task<Shared.Dtos.ApiResponse<CatListDto[]>> GetUserAdoptionCatsAsync();
 
         // POST api/user/adopt/1
-        [Post("/api/user/adopt/{catId:int}")]
+        [Post("/api/user/adopt/{catId}")]
         Task<Shared.Dtos.ApiResponse<UserAdoption>> AdoptCatAsync(int catId);
     }
 }

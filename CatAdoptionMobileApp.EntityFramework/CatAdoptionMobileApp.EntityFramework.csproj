@@ -18,8 +18,4 @@
     <ProjectReference Include="..\CatAdoptionMobileApp.Domain\CatAdoptionMobileApp.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
