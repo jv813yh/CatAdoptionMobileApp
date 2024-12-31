@@ -40,7 +40,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     // If the user has not favorited the cat, add it to the favorites
                     if (firstFavorite == null)
                     {
-                        await _currentUserFavoritesSet.AddAsync(new UserFavorites
+                        await AddAsync(new UserFavorites
                         {
                             UserId = userId,
                             CatId = catId
@@ -49,7 +49,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     else
                     {
                         // If the user has already favorited the cat, remove it from the favorites
-                        _currentUserFavoritesSet.Remove(firstFavorite);
+                        await DeleteAsync(firstFavorite.Id);
                     }
 
                     await _dbContext.SaveChangesAsync();
@@ -171,17 +171,17 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
 
-                    // Release the semaphore
-                    _semaphore.Release();
-
                     return ApiResponse<UserAdoption>.Success(newUserAdoption);
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
+                    return ApiResponse<UserAdoption>.Fail("An error occurred while adopting the cat.");
+                }
+                finally
+                {
                     // Release the semaphore
                     _semaphore.Release();
-                    return ApiResponse<UserAdoption>.Fail("An error occurred while adopting the cat.");
                 }
             }
         }

@@ -21,9 +21,8 @@
             try
             {
                 SetTrueBoolValues();
-                CatId = value;
 
-                var response = await _catApi.GetCatDetailsAsync(CatId);
+                var response = await _catApi.GetCatDetailsAsync(value);
                 if (response.IsSuccess)
                 {
                     CatDetail = response.Data;

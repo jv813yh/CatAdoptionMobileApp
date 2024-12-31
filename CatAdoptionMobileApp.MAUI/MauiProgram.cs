@@ -33,9 +33,8 @@
                              .AddTransient<LoginRegisterPage>()
                              .AddTransient<HomePage>()
                              .AddTransient<HomeViewModel>()
-                             .AddTransient<DetailsViewModel>()
-                             .AddTransient<DetailsPage>()
                              .AddSingleton<CommonService>()
+                             .AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage))
                              .AddSingleton<IAuthService, AuthProvider>();
         }
 

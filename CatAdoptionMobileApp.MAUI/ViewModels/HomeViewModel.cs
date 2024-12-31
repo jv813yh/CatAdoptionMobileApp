@@ -40,14 +40,12 @@
                 {
                     PopularCats = responsePopularCats.Data;
                 }
-                await Task.Delay(50);
 
                 var responseNewAddedCats = await _catApi.GetNewAddedCatsAsync(5);
                 if (responseNewAddedCats.IsSuccess)
                 {
                     NewAddedCats = responseNewAddedCats.Data;
                 }
-                await Task.Delay(50);
 
                 var responseRandomCats = await _catApi.GetRandomCatsAsync(5);
                 if (responseRandomCats.IsSuccess)
@@ -61,6 +59,26 @@
             {
                 await ShowAlertMessageAsync("Error while loading home page", apiEx.Message, "Ok");
                 Debug.WriteLine($"Error in InitializeHomeViewModelAsync: {apiEx.Content}"); 
+            }
+            finally
+            {
+                SetFalseBoolValues();
+            }
+        }
+
+        [RelayCommand]
+        private async Task GoToDetailsPageAsync(int catId)
+        {
+            try
+            {
+                SetTrueBoolValues();
+                await GoToPageAsync($"{nameof(DetailsPage)}?{nameof(DetailsViewModel.CatId)}={catId}");
+            }
+            catch (Exception ex)
+            {
+                await ShowAlertMessageAsync("Error", "Error while navigating to details page", "Ok");
+                Debug.WriteLine($"Error in GoToDetailsPageAsync: {ex.Message}");
+                return;
             }
             finally
             {

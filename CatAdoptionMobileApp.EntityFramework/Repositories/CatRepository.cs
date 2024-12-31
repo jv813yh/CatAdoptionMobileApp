@@ -98,11 +98,14 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         {
             try
             {
-                var result = await _currentCatDbSet
-                                   .Select(Selectors.CatToCatListDto)
-                                   .ToArrayAsync();
+                // Get all cats from the database
+                var cats = await GetAllAsync();
+                // Map the cats to CatListDto
+                var catsListDto = cats
+                                  .Select(c => c.MapToCatDetailsDto())
+                                        .ToArray();
 
-                return ApiResponse<CatListDto[]>.Success(result);
+                return ApiResponse<CatListDto[]>.Success(catsListDto);
             }
             catch (Exception ex)
             {
@@ -125,10 +128,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                 try
                 {
                     // Find the cat by id
-                    var catDetail = await _currentCatDbSet
-                                    .AsTracking()
-                                    .FirstOrDefaultAsync(c => c.Id == id);
-
+                    var catDetail = await GetByIdAsync(id, true);   
 
                     if (catDetail == null)
                     {

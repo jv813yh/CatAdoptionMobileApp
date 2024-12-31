@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CatAdoptionMobileApp.MAUI.ViewModels"
              x:Class="CatAdoptionMobileApp.MAUI.Pages.HomePage"
              Shell.NavBarIsVisible="False">
 
@@ -22,6 +23,11 @@
                            HorizontalOptions="Center"
                            VerticalOptions="Center"
                            TextColor="{StaticResource Primary}"/>
+
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}"
+                                              CommandParameter="{Binding Id}"/>
+                    </VerticalStackLayout.GestureRecognizers>
                 </VerticalStackLayout>
             </DataTemplate>
         </ResourceDictionary>
@@ -55,6 +61,11 @@
                         <DataTemplate>
                             <Grid RowDefinitions="*,auto,auto"
                                   RowSpacing="5">
+
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}"
+                                                          CommandParameter="{Binding Id}"/>
+                                </Grid.GestureRecognizers>
 
                                 <VerticalStackLayout Grid.Row="0">
                                 

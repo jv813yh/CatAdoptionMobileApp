@@ -22,10 +22,15 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TEntity?> GetByIdAsync(int id)
+        public async Task<TEntity?> GetByIdAsync(int id, bool isTracking)
         {
             try
             {
+                if (isTracking)
+                {
+                    _currentDbSet.AsTracking();
+                }
+
                 var result = await _currentDbSet.FindAsync(id);
 
                 return result;
@@ -42,7 +47,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<List<TEntity>?> GetAll()
+        public async Task<List<TEntity>?> GetAllAsync()
         {
             try
             {
@@ -119,7 +124,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// <returns></returns>
         public async Task DeleteAsync(int id)
         {
-            var entity = await GetByIdAsync(id);
+            var entity = await GetByIdAsync(id, true);
 
             if (entity != null)
             {

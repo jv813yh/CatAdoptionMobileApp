@@ -2,11 +2,121 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CatAdoptionMobileApp.MAUI.Pages.DetailsPage"
-             Title="DetailsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Shell.NavBarIsVisible="True"
+             Shell.PresentationMode="ModalAnimated"
+             Background="{StaticResource BgColor}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Border" x:Key="IconBorderContainer">
+                <Setter Property="WidthRequest" Value="30"/>
+                <Setter Property="HeightRequest" Value="30"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 5"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="auto,*,*,auto"
+          RowSpacing="20"
+          Padding="15">
+
+        <FlexLayout Grid.Row="0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    JustifyContent="SpaceBetween">
+            <Border Style="{StaticResource IconBorderContainer}">
+                <Image Source="left_arrow.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Aspect="AspectFill"/>
+            </Border>
+
+            <Label Text="Cat Details"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   Padding="5"/>
+
+            <Border Style="{StaticResource IconBorderContainer}">
+                <Image Source="heart.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Aspect="AspectFill"/>
+            </Border>
+        </FlexLayout>
+
+        <Border Grid.Row="1"
+                HeightRequest="300"
+                WidthRequest="300"
+                StrokeShape="RoundRectangle 80"
+                StrokeThickness="0"
+                HorizontalOptions="Center">
+            <Image Source="{Binding CatDetail.ImageUrl}"
+                   HeightRequest="300"
+                   WidthRequest="300"
+                   Aspect="AspectFill"/>
+        </Border>
+
+        <Grid Grid.Row="2"
+              Padding="5"
+              RowDefinitions="auto,auto,auto"
+              ColumnDefinitions="*,*,*">
+
+            <Label Grid.Row="0"
+                   Padding="5"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Text="{Binding CatDetail.Name}"
+                   FontAttributes="Bold"
+                   FontSize="24"/>
+
+            <Border Grid.Row="0"
+                    Padding="5"
+                    Grid.Column="2"
+                    StrokeThickness="0"
+                    Background="{StaticResource BgColor}">
+                <Label Text="{Binding CatDetail.Price, StringFormat='{0}€'}"
+                       FontSize="24"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       HorizontalOptions="End"/>
+            </Border>
+
+            <Label Grid.Row="1"
+                   Grid.ColumnSpan="3"
+                   Text="{Binding CatDetail.Description}"
+                   LineHeight="1.5"
+                   FontAttributes="Italic"
+                   FontSize="16"
+                   VerticalTextAlignment="Center"
+                   Padding="5"/>
+
+            <Grid Grid.Row="2"
+                  Grid.Column="0"
+                  RowDefinitions="auto,auto"
+                  ColumnDefinitions="auto,auto"
+                  ColumnSpacing="4">
+
+                <Label Text="Breed: "
+                       Padding="5,20,5,5"
+                       FontSize="16"
+                       Grid.Row="0"
+                       TextDecorations="Underline"
+                       Grid.Column="1"/>
+
+                <Label Text="{Binding CatDetail.Breed}"
+                       Padding="5,10,5,5"
+                       FontSize="16"
+                       TextColor="{StaticResource Primary}"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       LineBreakMode="WordWrap"/>
+            </Grid>
+
+        </Grid>
+        
+        
+        
+    </Grid>
 </ContentPage>
