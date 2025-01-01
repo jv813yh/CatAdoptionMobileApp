@@ -1,0 +1,33 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CatAdoptionMobileApp.MAUI.Controls.CatFeatControl"
+             x:Name="this"
+             Shell.NavBarIsVisible="False">
+    
+    <Grid RowDefinitions="auto,auto"
+          ColumnDefinitions="auto,auto"
+          BindingContext="{x:Reference this}">
+
+        <Image Source="{Binding Icon}"
+               Grid.Row="0"
+               WidthRequest="25"
+               HeightRequest="25"
+               Aspect="AspectFill"
+               Grid.Column="0"/>
+
+        <Label Text="{Binding Label}"
+             Padding="5,10"
+             FontSize="16"
+             Grid.Row="0"
+             TextDecorations="Underline"
+             Grid.Column="1"/>
+
+        <Label Text="{Binding Value}"
+             FontSize="16"
+             TextColor="{StaticResource Primary}"
+             Grid.Row="1"
+             Grid.Column="1"
+             LineBreakMode="WordWrap"
+             MaxLines="3"/>
+    </Grid>
+</ContentPage>

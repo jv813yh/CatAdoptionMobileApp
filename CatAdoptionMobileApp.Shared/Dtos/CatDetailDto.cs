@@ -14,8 +14,8 @@ namespace CatAdoptionMobileApp.Shared.Dtos
         public string GenderImage
             => Gender switch
             {
-                Gender.Male => "male",
-                Gender.Female => "female"
+                Gender.Male => "male.png",
+                Gender.Female => "femenine.png"
             };
 
         public string Age

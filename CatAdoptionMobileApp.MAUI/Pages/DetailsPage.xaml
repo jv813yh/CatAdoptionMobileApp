@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:CatAdoptionMobileApp.MAUI.Controls"
              x:Class="CatAdoptionMobileApp.MAUI.Pages.DetailsPage"
              Shell.NavBarIsVisible="True"
              Shell.PresentationMode="ModalAnimated"
@@ -30,7 +31,11 @@
                 <Image Source="left_arrow.svg"
                        WidthRequest="30"
                        HeightRequest="30"
-                       Aspect="AspectFill"/>
+                       Aspect="AspectFill">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackPageCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </Border>
 
             <Label Text="Cat Details"
@@ -86,37 +91,42 @@
             <Label Grid.Row="1"
                    Grid.ColumnSpan="3"
                    Text="{Binding CatDetail.Description}"
+                   Margin="0,10"
                    LineHeight="1.5"
                    FontAttributes="Italic"
                    FontSize="16"
                    VerticalTextAlignment="Center"
                    Padding="5"/>
 
-            <Grid Grid.Row="2"
-                  Grid.Column="0"
-                  RowDefinitions="auto,auto"
-                  ColumnDefinitions="auto,auto"
-                  ColumnSpacing="4">
+            <controls:CatFeatControl Grid.Row="2"
+                                     Grid.Column="1"
+                                     Icon="cat.png"
+                                     Label="Breed"
+                                     Value="{Binding CatDetail.Breed}"/>
 
-                <Label Text="Breed: "
-                       Padding="5,20,5,5"
-                       FontSize="16"
-                       Grid.Row="0"
-                       TextDecorations="Underline"
-                       Grid.Column="1"/>
+            <controls:CatFeatControl Grid.Row="2"
+                                    Grid.Column="2"
+                                    Label="Gender"
+                                    Icon="{Binding CatDetail.GenderImage}"
+                                    Value="{Binding CatDetail.GenderDisplay}"/>
 
-                <Label Text="{Binding CatDetail.Breed}"
-                       Padding="5,10,5,5"
-                       FontSize="16"
-                       TextColor="{StaticResource Primary}"
-                       Grid.Row="1"
-                       Grid.Column="1"
-                       LineBreakMode="WordWrap"/>
-            </Grid>
+            <controls:CatFeatControl Grid.Row="2"
+                                    Grid.Column="0"
+                                    Label="Age"
+                                    Icon="calendar.png"
+                                    Value="{Binding CatDetail.Age}"/>
 
         </Grid>
-        
-        
-        
+
+        <Button Grid.Row="3"
+                    Text="Adopt Me Now"
+                    Style="{StaticResource btnPrimary}"/>
+
+
+        <ActivityIndicator Grid.RowSpan="4"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Color="{StaticResource Primary}"
+                           IsRunning="{Binding IsBusy}"/>
     </Grid>
 </ContentPage>

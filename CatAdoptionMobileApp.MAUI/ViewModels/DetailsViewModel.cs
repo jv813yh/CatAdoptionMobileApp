@@ -42,6 +42,10 @@
                 SetFalseBoolValues();
             }
         }
+
+        [RelayCommand]
+        private async Task GoBackPageAsync()
+            => await GoToPageAsync("..");
         protected override void SetFalseBoolValues()
         {
             IsBusy = false;

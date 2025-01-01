@@ -29,13 +29,16 @@
         /// <param name="serviceCollection"></param>
         static void RegisterAppDependencies(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<LoginRegisterViewModel>()
-                             .AddTransient<LoginRegisterPage>()
-                             .AddTransient<HomePage>()
-                             .AddTransient<HomeViewModel>()
-                             .AddSingleton<CommonService>()
-                             .AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage))
-                             .AddSingleton<IAuthService, AuthProvider>();
+            serviceCollection.AddTransient<LoginRegisterViewModel>() // Register the LoginRegisterViewModel as transient
+                             .AddTransient<LoginRegisterPage>() // Register the LoginRegisterPage as transient
+                             .AddTransient<HomePage>() // Register the HomePage as transient
+                             .AddTransient<HomeViewModel>() // Register the HomeViewModel as transient
+                             .AddSingleton<CommonService>() // Register the CommonService as singleton
+                             .AddSingleton<AllCatsViewModel>() // Register the AllCatsViewModel as singleton
+                             .AddTransient<AllCatsPage>() // Register the AllCatsPage as transient
+                             .AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage)) // Register the DetailsPage
+                                                                                                             // and DetailsViewModel as transient with shell route
+                             .AddSingleton<IAuthService, AuthProvider>(); // Register the AuthProvider as IAuthService as singleton
         }
 
         /// <summary>
@@ -44,15 +47,15 @@
         /// <param name="services"></param>
         static void ConfigureRefit(IServiceCollection services)
         {
-            // Register IAuthApi with BaseAddress
+            // Register IAuthApi with BaseAddress for authentication and authorization
             services.AddRefitClient<IAuthApi>()
                 .ConfigureHttpClient(SetBaseApiAddressHttpClient);
 
-            // Register ICatApi with BaseAddress
+            // Register ICatApi with BaseAddress for working with cats data
             services.AddRefitClient<ICatApi>()
                 .ConfigureHttpClient(SetBaseApiAddressHttpClient);
 
-            // Register IUserApi with authorization token
+            // Register IUserApi with authorization token and for working with user data
             services.AddRefitClient<IUserApi>(sp =>
             {
                 return new RefitSettings()
