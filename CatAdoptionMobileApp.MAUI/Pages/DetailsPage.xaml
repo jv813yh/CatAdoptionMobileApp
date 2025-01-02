@@ -105,13 +105,13 @@
                                      Value="{Binding CatDetail.Breed}"/>
 
             <controls:CatFeatControl Grid.Row="2"
-                                    Grid.Column="2"
+                                    Grid.Column="0"
                                     Label="Gender"
                                     Icon="{Binding CatDetail.GenderImage}"
                                     Value="{Binding CatDetail.GenderDisplay}"/>
 
             <controls:CatFeatControl Grid.Row="2"
-                                    Grid.Column="0"
+                                    Grid.Column="2"
                                     Label="Age"
                                     Icon="calendar.png"
                                     Value="{Binding CatDetail.Age}"/>

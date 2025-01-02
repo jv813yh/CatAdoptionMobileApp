@@ -1,12 +1,96 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CatAdoptionMobileApp.MAUI.ViewModels"
              x:Class="CatAdoptionMobileApp.MAUI.Pages.AllCatsPage"
-             Title="AllCatsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="All Cats">
+
+    <Grid>
+
+        <RefreshView RefreshColor="{StaticResource Primary}"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshAllCatsViewModelCommand}">
+            
+            <Grid RowDefinitions="auto,*">
+
+                <Label Grid.Row="0"
+                       TextColor="{StaticResource Gray500}"
+                       Text="Pull To Refresh"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Padding="2"
+                       FontAttributes="Bold"/>
+
+                <ScrollView Grid.Row="1"
+                            Padding="5">
+
+                    <CollectionView ItemsSource="{Binding AllCats}">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                
+                                <VerticalStackLayout Margin="5">
+
+                                    <VerticalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:AllCatsViewModel}}, Path=GoToDetailsPageCommand}"
+                                                              CommandParameter="{Binding Id}"/>
+                                    </VerticalStackLayout.GestureRecognizers>
+                                    <Border BackgroundColor="White"
+                                            StrokeShape="RoundRectangle 30,0,0,0"
+                                            StrokeThickness="0">
+
+                                        <Grid ColumnDefinitions="auto,*"
+                                              ColumnSpacing="15">
+
+                                            <Image Grid.Row="0"
+                                                   Source="{Binding ImageUrl}"
+                                                   WidthRequest="125"
+                                                   HeightRequest="125"
+                                                   Aspect="AspectFill">
+                                                <Image.Shadow>
+                                                    <Shadow Brush="{StaticResource Primary}"
+                                                            Radius="25"/>
+                                                </Image.Shadow>
+                                            </Image>
+
+                                            <VerticalStackLayout Grid.Column="2"
+                                                                 VerticalOptions="Center"
+                                                                 Spacing="15">
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="22"
+                                                       FontAttributes="Bold"
+                                                       TextColor="{StaticResource Primary}"/>
+                                                <Label Text="{Binding Breed}"
+                                                       TextColor="{StaticResource Gray500}"
+                                                       FontSize="18"/>
+                                                <Label Text="{Binding Price, StringFormat='{0}€'}"
+                                                       TextColor="{StaticResource Primary}"
+                                                       FontSize="18"/>
+                                            </VerticalStackLayout>
+                                        </Grid>
+                                        
+                                    </Border>
+                                    
+                                    <BoxView Color="{StaticResource Primary}"
+                                            HeightRequest="1"
+                                             Margin="0,1,1,0"
+                                             Opacity="0.3"/>
+
+                                </VerticalStackLayout>
+                                
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        
+                    </CollectionView>
+                </ScrollView>
+
+                <ActivityIndicator HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Color="{StaticResource Primary}"
+                                   IsRunning="{Binding IsBusy}"/>
+            </Grid>
+        </RefreshView>
+        
+    </Grid>
 </ContentPage>

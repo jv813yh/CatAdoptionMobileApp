@@ -6,6 +6,9 @@
     
     <Grid RowDefinitions="auto,auto"
           ColumnDefinitions="auto,auto"
+          ColumnSpacing="5"
+          Grid.Row="2"
+          Grid.Column="0"
           BindingContext="{x:Reference this}">
 
         <Image Source="{Binding Icon}"
@@ -16,7 +19,7 @@
                Grid.Column="0"/>
 
         <Label Text="{Binding Label}"
-             Padding="5,10"
+             Padding="0,10"
              FontSize="16"
              Grid.Row="0"
              TextDecorations="Underline"

@@ -35,6 +35,26 @@
 
         protected async Task GoToPageAsync(ShellNavigationState shellNavigationState, bool animate, IDictionary<string, object> parameters)
             => await Shell.Current.GoToAsync(shellNavigationState, animate, parameters);
+
+        [RelayCommand]
+        protected async Task GoToDetailsPageAsync(int catId)
+        {
+            try
+            {
+                SetTrueBoolValues();
+                await GoToPageAsync($"{nameof(DetailsPage)}?{nameof(DetailsViewModel.CatId)}={catId}");
+            }
+            catch (Exception ex)
+            {
+                await ShowAlertMessageAsync("Error", "Error while navigating to details page", "Ok");
+                Debug.WriteLine($"Error in GoToDetailsPageAsync: {ex.Message}");
+                return;
+            }
+            finally
+            {
+                SetFalseBoolValues();
+            }
+        }
         #endregion
 
         #region Abstract methods for setting boolean values for current view model

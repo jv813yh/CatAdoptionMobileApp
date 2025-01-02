@@ -66,26 +66,6 @@
             }
         }
 
-        [RelayCommand]
-        private async Task GoToDetailsPageAsync(int catId)
-        {
-            try
-            {
-                SetTrueBoolValues();
-                await GoToPageAsync($"{nameof(DetailsPage)}?{nameof(DetailsViewModel.CatId)}={catId}");
-            }
-            catch (Exception ex)
-            {
-                await ShowAlertMessageAsync("Error", "Error while navigating to details page", "Ok");
-                Debug.WriteLine($"Error in GoToDetailsPageAsync: {ex.Message}");
-                return;
-            }
-            finally
-            {
-                SetFalseBoolValues();
-            }
-        }
-
 
         protected override void SetFalseBoolValues()
         {

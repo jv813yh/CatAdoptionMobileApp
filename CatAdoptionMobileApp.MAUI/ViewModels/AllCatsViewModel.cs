@@ -42,7 +42,7 @@
             }
             else 
             {
-                _isRefreshing = true;
+                IsRefreshing = true;
             }
 
             try
@@ -71,7 +71,7 @@
                 }
                 else
                 {
-                    _isRefreshing = false;
+                    IsRefreshing = false;
                 }
             }
         }
