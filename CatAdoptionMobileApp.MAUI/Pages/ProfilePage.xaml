@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:CatAdoptionMobileApp.MAUI.Controls"
              x:Class="CatAdoptionMobileApp.MAUI.Pages.ProfilePage"
-             Title="ProfilePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Profile">
+
+    <Grid RowDefinitions="auto,*,auto"
+          RowSpacing="10">
+
+        <VerticalStackLayout Grid.Row="0">
+
+            <Border BackgroundColor="{StaticResource Primary}"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    StrokeShape="RoundRectangle 50"
+                    StrokeThickness="0"
+                    Opacity="0.8"
+                    Margin="5">
+                
+                <Label Text="{Binding Initials}"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="60"
+                       FontAttributes="Bold"/>
+            </Border>
+
+            <Label Text="{Binding UserName}"
+                   Grid.Row="1"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   TextColor="{StaticResource Primary}"
+                   TextDecorations="Underline"/>
+
+
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="50"
+                             Margin="5,15"
+                             Padding="15">
+
+            <controls:ProfilGrid Text="My Profile"
+                                 ImageSource="right_arrow.svg"
+                                 Tapped="OnProfilGrid_Tapped"/>
+
+            <controls:ProfilGrid Text="Change Password"
+                                ImageSource="right_arrow.svg"
+                                Tapped="OnProfilGrid_Tapped"/>
+
+        </VerticalStackLayout>
+
+        <Button Grid.Row="2"
+                Text="Login"
+                Style="{StaticResource btnPrimary}"
+                Padding="80,10"
+                HorizontalOptions="Center"
+                Margin="10">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                             Value="True"
+                             Binding="{Binding IsLoggedIn}">
+                    <Setter Property="Text" Value="Logout"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        
+    </Grid>
 </ContentPage>

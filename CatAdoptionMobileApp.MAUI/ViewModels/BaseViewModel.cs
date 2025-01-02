@@ -16,7 +16,7 @@
         private LoginRegisterModel _loginRegisterModel;
 
         #region Show Message Methods
-        protected async Task ShowToastMessageAsync(string message)
+        public async Task ShowToastMessageAsync(string message)
             => await Toast.Make(message).Show();
         protected async Task ShowAlertMessageAsync(string title, string message, string buttonText)
             => await Shell.Current.DisplayAlert(title, message, buttonText);

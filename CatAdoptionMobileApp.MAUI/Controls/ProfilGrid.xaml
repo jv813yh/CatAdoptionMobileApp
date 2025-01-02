@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="CatAdoptionMobileApp.MAUI.Controls.ProfilGrid"
+             Title="ProfilGrid"
+             x:Name="this">
+
+    <Grid RowDefinitions="*,auto"
+          ColumnDefinitions="*,auto"
+          BindingContext="{Reference this}">
+
+        <Label Grid.Row="0" 
+            Grid.Column="0"
+            FontSize="18"
+            TextColor="{StaticResource Primary}"
+            Text="{Binding Text}"/>
+
+        <Image Grid.Row="0"
+            Grid.Column="1"
+            Source="{Binding ImageSource}"
+            HeightRequest="30"
+            WidthRequest="30">
+            <Image.Behaviors>
+                <toolkit:IconTintColorBehavior TintColor="{StaticResource Primary}"/>
+            </Image.Behaviors>
+        </Image>
+
+        <BoxView Grid.Row="1"
+              Grid.ColumnSpan="2"
+              HeightRequest="1"
+              Color="{StaticResource Primary}"
+              Opacity="0.2"/>
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTappedHandler"/>
+        </Grid.GestureRecognizers>
+
+    </Grid>
+</ContentPage>

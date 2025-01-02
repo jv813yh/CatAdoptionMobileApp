@@ -36,6 +36,8 @@
                              .AddSingleton<CommonService>() // Register the CommonService as singleton
                              .AddSingleton<AllCatsViewModel>() // Register the AllCatsViewModel as singleton
                              .AddTransient<AllCatsPage>() // Register the AllCatsPage as transient
+                             .AddTransient<ProfilePage>() // Register the ProfilePage as transienttransient
+                             .AddSingleton<ProfileViewModel>() // Register the ProfileViewModel as singleton
                              .AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage)) // Register the DetailsPage
                                                                                                              // and DetailsViewModel as transient with shell route
                              .AddSingleton<IAuthService, AuthProvider>(); // Register the AuthProvider as IAuthService as singleton
