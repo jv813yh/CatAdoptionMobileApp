@@ -1,12 +1,13 @@
 namespace CatAdoptionMobileApp.MAUI.Controls;
 
-public partial class ProfilGrid : ContentPage
+public partial class OptionProfilGrid : ContentView
 {
-	public static readonly BindableProperty TextProperty 
-        = BindableProperty.Create(nameof(Text), typeof(string), typeof(ProfilGrid), string.Empty);
+
+    public static readonly BindableProperty TextProperty
+        = BindableProperty.Create(nameof(Text), typeof(string), typeof(OptionProfilGrid), string.Empty);
 
     public static readonly BindableProperty ImageSourceProperty
-        = BindableProperty.Create(nameof(ImageSource), typeof(string), typeof(ProfilGrid), string.Empty);
+        = BindableProperty.Create(nameof(ImageSource), typeof(string), typeof(OptionProfilGrid), string.Empty);
 
     public string Text
     {
@@ -19,8 +20,7 @@ public partial class ProfilGrid : ContentPage
         get => (string)GetValue(ImageSourceProperty);
         set => SetValue(ImageSourceProperty, value);
     }
-
-    public ProfilGrid()
+    public OptionProfilGrid()
 	{
 		InitializeComponent();
 	}

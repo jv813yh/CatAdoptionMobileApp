@@ -1,4 +1,6 @@
-﻿global using CatAdoptionMobileApp.Domain.Models;
+﻿global using Cat = CatAdoptionMobileApp.MAUI.Models.Cat;
+global using CatAdoptionMobileApp.Domain.Models;
+global using CatAdoptionMobileApp.Shared.Enumerations;
 global using CatAdoptionMobileApp.MAUI.Models;
 global using CatAdoptionMobileApp.MAUI.Pages;
 global using CatAdoptionMobileApp.MAUI.Services;
@@ -15,3 +17,4 @@ global using Microsoft.Extensions.Logging;
 global using Refit;
 global using System.Diagnostics;
 global using System.Text.Json;
+global using System.Windows.Input;

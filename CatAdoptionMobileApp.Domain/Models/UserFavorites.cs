@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.Marshalling;
-
-namespace CatAdoptionMobileApp.Domain.Models
+﻿namespace CatAdoptionMobileApp.Domain.Models
 {
     public class UserFavorites : CommonObject
     {

@@ -13,10 +13,13 @@ namespace CatAdoptionMobileApp.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserCatService _userCatService;
+        private readonly ICatService _catService;
 
-        public UserController(IUserCatService userCatService)
+        public UserController(IUserCatService userCatService,
+                              ICatService catService)
         {
             _userCatService = userCatService;
+            _catService = catService;
         }
 
         private int UserId 
@@ -41,5 +44,10 @@ namespace CatAdoptionMobileApp.Api.Controllers
         [HttpPost("adopt/{catId:int}")]
         public async Task<ApiResponse<UserAdoption>> AdoptCatAsync(int catId)
             => await _userCatService.AdoptCatAsync(UserId, catId);
+
+        // GET api/cat/view-cat-details/1
+        [HttpGet("view-cat-details/{id:int}")]
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id)
+            => await _catService.GetCatDetailsAsync(id, UserId);
     }
 }

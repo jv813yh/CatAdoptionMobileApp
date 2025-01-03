@@ -91,11 +91,12 @@ namespace CatAdoptionMobileApp.Api.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id)
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id, int idUser = -1)
         {
             try
             {
-                var catDetails = await _catRepository.GetCatDetailsAsync(id);
+                var catDetails = await _catRepository.GetCatDetailsAsync(id, idUser);
+
                 return catDetails;
             }
             catch (Exception ex)

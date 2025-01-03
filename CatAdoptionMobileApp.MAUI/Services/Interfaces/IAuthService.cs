@@ -6,7 +6,7 @@
     public interface IAuthService
     {
         Task<bool> LoginRegisterAsync(LoginRegisterModel loginRegisterModel, bool isRegistration);
-        Task LogoutAsync();
+        void Logout();
         LoggedInUser? GetUserInfo();
         bool IsLoggedIn { get; }
     }

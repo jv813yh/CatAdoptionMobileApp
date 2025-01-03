@@ -22,5 +22,9 @@
         // POST api/user/adopt/1
         [Post("/api/user/adopt/{catId}")]
         Task<Shared.Dtos.ApiResponse<UserAdoption>> AdoptCatAsync(int catId);
+
+        // GET api/cat/view-cat-details/1
+        [Get("/api/cat/view-cat-details/{id}")]
+        Task<Shared.Dtos.ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id);
     }
 }

@@ -60,6 +60,8 @@
                 SaveUserToPreferences(new LoggedInUser(response.Data.UserId, response.Data.Name, response.Data.Token));
                 // Save the token to the CommonService
                 _commonService.SetToken(response.Data.Token);
+                // Notify the subscribers that the login status has changed
+                _commonService.NotifyLoginStatusChanged();
             }
             catch (ApiException apiEx)
             {
@@ -76,9 +78,10 @@
         /// Logout the user
         /// </summary>
         /// <returns></returns>
-        public async Task LogoutAsync()
+        public void Logout()
         {
             _commonService.SetToken(null);
+            _commonService.NotifyLoginStatusChanged();
             RemoveUserFromPreferences();
         }
 

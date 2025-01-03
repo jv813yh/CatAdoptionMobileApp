@@ -8,5 +8,11 @@
         {
             Token = token;
         }
+
+        public event EventHandler LoginStatusChanged;
+
+        public void NotifyLoginStatusChanged()
+         => LoginStatusChanged?.Invoke(this, EventArgs.Empty);
+        
     }
 }

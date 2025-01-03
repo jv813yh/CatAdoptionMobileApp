@@ -39,17 +39,17 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Grid.Row="1"
-                             Spacing="50"
+                             Spacing="30"
                              Margin="5,15"
                              Padding="15">
 
-            <controls:ProfilGrid Text="My Profile"
+            <controls:OptionProfilGrid Text="My Adoptions"
                                  ImageSource="right_arrow.svg"
                                  Tapped="OnProfilGrid_Tapped"/>
 
-            <controls:ProfilGrid Text="Change Password"
-                                ImageSource="right_arrow.svg"
-                                Tapped="OnProfilGrid_Tapped"/>
+            <controls:OptionProfilGrid Text="Change Password"
+                                 ImageSource="right_arrow.svg"
+                                 Tapped="OnProfilGrid_Tapped"/>
 
         </VerticalStackLayout>
 
@@ -58,7 +58,8 @@
                 Style="{StaticResource btnPrimary}"
                 Padding="80,10"
                 HorizontalOptions="Center"
-                Margin="10">
+                Margin="10"
+                Command="{Binding LoginLogoutCommand}">
             <Button.Triggers>
                 <DataTrigger TargetType="Button"
                              Value="True"

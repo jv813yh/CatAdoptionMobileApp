@@ -47,7 +47,18 @@
                 <Image Source="heart.svg"
                        WidthRequest="30"
                        HeightRequest="30"
-                       Aspect="AspectFill"/>
+                       Aspect="AspectFill">
+                    <Image.Triggers>
+                        <DataTrigger TargetType="Image"
+                                     Binding="{Binding CatDetail.IsFavorite}"
+                                     Value="True">
+                            <Setter Property="Source" Value="heart_fill.png"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleFavoriteCatCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </Border>
         </FlexLayout>
 

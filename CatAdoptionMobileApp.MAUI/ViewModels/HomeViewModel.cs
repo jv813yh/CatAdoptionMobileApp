@@ -1,8 +1,12 @@
-﻿namespace CatAdoptionMobileApp.MAUI.ViewModels
+﻿
+namespace CatAdoptionMobileApp.MAUI.ViewModels
 {
     public partial class HomeViewModel : BaseViewModel
     {
         private readonly ICatApi _catApi;
+        private readonly CommonService _commonService;
+        private readonly IAuthService _authService;
+
         [ObservableProperty]
         private IEnumerable<CatListDto> _newAddedCats;
         [ObservableProperty]
@@ -11,16 +15,45 @@
         private IEnumerable<CatListDto> _randomCats;
 
         [ObservableProperty]
-        private string _userName = "Jozko123";
+        private string _userName = AppConstants.NotLoggedInUserMessage;
 
 
-        public HomeViewModel(ICatApi catApi)
+        public HomeViewModel(ICatApi catApi, 
+                             CommonService commonService,
+                             IAuthService authService)
         {
             _catApi = catApi;
+            _commonService = commonService;
+            _authService = authService;
+            _isInitialized = false;
+
             _newAddedCats = Enumerable.Empty<CatListDto>();
             _popularCats = Enumerable.Empty<CatListDto>();
             _randomCats = Enumerable.Empty<CatListDto>();
-            _isInitialized = false;
+
+            // Subscribe to the LoginStatusChanged event
+            _commonService.LoginStatusChanged += OnLoginStatusChanged;
+            // Set the user info
+            SetUserInfo();
+        }
+
+        private void OnLoginStatusChanged(object? sender, EventArgs e)
+         => SetUserInfo();
+
+        private void SetUserInfo()
+        {
+            if (_authService.IsLoggedIn)
+            {
+                var loggedInUser = _authService.GetUserInfo();
+                if (loggedInUser != null)
+                {
+                    UserName = loggedInUser.Name;
+                }
+            }
+            else
+            {
+                UserName = AppConstants.NotLoggedInUserMessage;
+            }
         }
 
         private bool _isInitialized;

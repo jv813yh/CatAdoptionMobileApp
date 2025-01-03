@@ -120,7 +120,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id)
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id, int idUser = -1)
         {
 
             using (var transaction = _dbContext.Database.BeginTransaction())
@@ -143,6 +143,14 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
 
                     // Map the Cat to CatDetailDto
                     var catDetailDto = catDetail.MapToCatDetailsDto();
+
+                    if(idUser >= 0)
+                    {
+                        // Check if the user has favorited the cat
+                        var isFavorite = await _dbContext.UserFavorites
+                            .AnyAsync(uf => uf.CatId == id && uf.UserId == idUser);
+                        catDetailDto.IsFavorite = isFavorite;
+                    }
 
                     return ApiResponse<CatDetailDto>.Success(catDetailDto);
 
