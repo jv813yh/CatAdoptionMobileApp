@@ -21,9 +21,16 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
+                // Fetching all cats from the database
                 var result = await _catRepository.GetAllCatsAsync();
 
-                return result;
+                // Mapping the Cat[] to CatListDto[]
+                CatListDto[] returnCats = result
+                                          .Select(c => c.MapToCatListDto())
+                                          .ToArray();
+
+                return ApiResponse<CatListDto[]>.Success(returnCats);
+
             }
             catch (Exception ex)
             {
@@ -40,9 +47,15 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
+                // Fetching new added cats from the database
                 var newAddedCats = await _catRepository.GetNewAddedCatsAsync(count);
 
-                return newAddedCats;
+                // Mapping the Cat[] to CatListDto[]
+                CatListDto[] returnCats = newAddedCats
+                                          .Select(c => c.MapToCatListDto())
+                                          .ToArray();
+
+                return ApiResponse<CatListDto[]>.Success(returnCats);
             }
             catch (Exception ex)
             {
@@ -59,8 +72,15 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
+                // Fetching popular cats from the database
                 var popularCats = await _catRepository.GetPopularCatsAsync(count);
-                return popularCats;
+
+                // Mapping the Cat[] to CatListDto[]
+                CatListDto[] returnCats = popularCats
+                                         .Select(c => c.MapToCatListDto())
+                                         .ToArray();
+
+                return ApiResponse<CatListDto[]>.Success(returnCats);
             }
             catch (Exception)
             {
@@ -77,8 +97,15 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
+                // Fetching random cats from the database
                 var randomCats = await _catRepository.GetRandomCatsAsync(count);
-                return randomCats;
+
+                // Mapping the Cat[] to CatListDto[]
+                CatListDto[] returnCats = randomCats
+                                        .Select(c => c.MapToCatListDto())
+                                        .ToArray();
+
+                return ApiResponse<CatListDto[]>.Success(returnCats);
             }
             catch (Exception ex)
             {
@@ -91,13 +118,24 @@ namespace CatAdoptionMobileApp.Api.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id, int idUser = -1)
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id, int idUser = 0)
         {
             try
             {
                 var catDetails = await _catRepository.GetCatDetailsAsync(id, idUser);
 
-                return catDetails;
+                if (catDetails.Item1 == null)
+                {
+                    return ApiResponse<CatDetailDto>.Fail("Cat not found.");
+                }
+
+                // Mapping the Cat to CatDetailDto
+                CatDetailDto returnCat = catDetails.Item1.MapToCatDetailsDto();
+
+                // Setting the IsFavorite property
+                returnCat.IsFavorite = catDetails.Item2;
+
+                return ApiResponse<CatDetailDto>.Success(returnCat);
             }
             catch (Exception ex)
             {

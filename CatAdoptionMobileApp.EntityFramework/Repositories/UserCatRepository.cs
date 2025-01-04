@@ -1,6 +1,6 @@
-﻿using CatAdoptionMobileApp.Domain.Models;
+﻿using CatAdoptionMobileApp.Domain.Exceptions;
+using CatAdoptionMobileApp.Domain.Models;
 using CatAdoptionMobileApp.EntityFramework.DbContexts;
-using CatAdoptionMobileApp.Shared.Dtos;
 using CatAdoptionMobileApp.Shared.Enumerations;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +27,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// <param name="userId"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse> ToggleUserCatFavoriteAsync(int userId, int catId)
+        public async Task ToggleUserCatFavoriteAsync(int userId, int catId)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -54,15 +54,12 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
 
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
-
-                    return ApiResponse.Success();
                 }
                 catch (Exception ex)
                 {
                     // Todo: Log database-related errors here
                     await transaction.RollbackAsync();
-
-                    return ApiResponse.Fail("An error occurred while toggling the favorite status.");
+                    throw; // rethrowing to let higher layers handle it
                 }
             }
         }
@@ -72,21 +69,20 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetUserFavoriteCatsAsync(int userId)
+        public async Task<Cat[]> GetUserFavoriteCatsAsync(int userId)
         {
             try
             {
                 var favoriteCats = await _currentUserFavoritesSet
                         .Where(f => f.UserId == userId)
                         .Select(f => f.Cat)
-                        .Select(Selectors.CatToCatListDto)
                         .ToArrayAsync();
 
-                return ApiResponse<CatListDto[]>.Success(favoriteCats);
+                return favoriteCats;
             }
             catch (Exception ex)
             {
-                return ApiResponse<CatListDto[]>.Fail("An error occurred while fetching the favorite cats.");
+                throw; // rethrowing to let higher layers handle it
             }
         }
 
@@ -95,21 +91,20 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetUserAdoptionCatsAsync(int userId)
+        public async Task<Cat[]> GetUserAdoptionCatsAsync(int userId)
         {
             try
             {
                 var userAdoptionCats = await _userAdoptionSet
                         .Where(f => f.UserId == userId)
                         .Select(f => f.Cat)
-                        .Select(Selectors.CatToCatListDto)
                         .ToArrayAsync();
 
-                return ApiResponse<CatListDto[]>.Success(userAdoptionCats);
+                return userAdoptionCats;
             }
             catch (Exception ex)
             {
-                return ApiResponse<CatListDto[]>.Fail("An error occurred while fetching the adopted cats.");
+                throw; // rethrowing to let higher layers handle it
             }
         }
 
@@ -119,7 +114,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// <param name="userId"></param>
         /// <param name="catId"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<UserAdoption>> AdoptCatAsync(int userId, int catId)
+        public async Task<UserAdoption> AdoptCatAsync(int userId, int catId)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -137,13 +132,13 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     // Check if the cat exists
                     if (cat == null)
                     {
-                        return ApiResponse<UserAdoption>.Fail("The cat does not exist.");
+                        throw new NullReferenceException("Cat is null");
                     }
 
                     // Check if the cat is available for adoption
                     if (cat.AdoptionStatus == AdoptionStatus.Adopted)
                     {
-                        return ApiResponse<UserAdoption>.Fail("The cat has already been adopted.");
+                        throw new NotAvailableAdoptionCat("Cat is not available for adoption");
                     }
 
                     // Check if the user has already adopted the cat
@@ -152,7 +147,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
 
                     if (userAdoption != null)
                     {
-                        return ApiResponse<UserAdoption>.Fail("The user has already adopted the cat.");
+                        throw new AlreadyAdoptedCatByUser("Cat is already adopted by the user");
                     }
 
                     // Update the cat's adoption status
@@ -171,12 +166,13 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
 
-                    return ApiResponse<UserAdoption>.Success(newUserAdoption);
+
+                    return newUserAdoption;
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    return ApiResponse<UserAdoption>.Fail("An error occurred while adopting the cat.");
+                    throw; // rethrowing to let higher layers handle it
                 }
                 finally
                 {

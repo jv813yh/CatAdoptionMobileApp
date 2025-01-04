@@ -2,7 +2,7 @@
 using CatAdoptionMobileApp.Shared.Dtos;
 using System.Linq.Expressions;
 
-namespace CatAdoptionMobileApp.EntityFramework
+namespace CatAdoptionMobileApp.Api
 {
     public static class Selectors
     {

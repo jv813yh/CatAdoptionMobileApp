@@ -47,11 +47,11 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<List<TEntity>?> GetAllAsync()
+        public async Task<TEntity[]?> GetAllAsync()
         {
             try
             {
-                var result = await _currentDbSet.ToListAsync();
+                var result = await _currentDbSet.ToArrayAsync();
 
                 return result;
             }

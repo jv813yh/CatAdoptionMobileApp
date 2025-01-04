@@ -1,6 +1,5 @@
 ﻿using CatAdoptionMobileApp.Domain.Models;
 using CatAdoptionMobileApp.EntityFramework.DbContexts;
-using CatAdoptionMobileApp.Shared.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace CatAdoptionMobileApp.EntityFramework.Repositories
@@ -20,17 +19,16 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetNewAddedCatsAsync(int count)
+        public async Task<Cat[]> GetNewAddedCatsAsync(int count)
         {
             try
             {
                 var newAddedCats = await _currentCatDbSet
-                           .Select(Selectors.CatToCatListDto)
                            .OrderByDescending(c => c.Id)
                            .Take(count)
                            .ToArrayAsync();
 
-                return ApiResponse<CatListDto[]>.Success(newAddedCats);
+                return newAddedCats;
             }
             catch (Exception ex)
             {
@@ -45,17 +43,16 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetPopularCatsAsync(int count)
+        public async Task<Cat[]> GetPopularCatsAsync(int count)
         {
             try
             {
                 var popularCats = await _currentCatDbSet
                            .OrderByDescending(c => c.Views)
-                           .Select(Selectors.CatToCatListDto)
                            .Take(count)
                            .ToArrayAsync();
 
-                return ApiResponse<CatListDto[]>.Success(popularCats);
+                return popularCats;
             }
             catch (Exception ex)
             {
@@ -70,17 +67,16 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetRandomCatsAsync(int count)
+        public async Task<Cat[]> GetRandomCatsAsync(int count)
         {
             try
             {
                 var randomCats = await _currentCatDbSet
                             .OrderBy(c => Guid.NewGuid())
-                            .Select(Selectors.CatToCatListDto)
                             .Take(count)
                             .ToArrayAsync();
 
-                return ApiResponse<CatListDto[]>.Success(randomCats);
+                return randomCats;
             }
             catch (Exception ex)
             {
@@ -94,18 +90,19 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<ApiResponse<CatListDto[]>> GetAllCatsAsync()
+        public async Task<Cat[]> GetAllCatsAsync()
         {
             try
             {
                 // Get all cats from the database
                 var cats = await GetAllAsync();
-                // Map the cats to CatListDto
-                var catsListDto = cats
-                                  .Select(c => c.MapToCatDetailsDto())
-                                        .ToArray();
 
-                return ApiResponse<CatListDto[]>.Success(catsListDto);
+                if(cats == null)
+                {
+                    return new Cat[1];
+                }
+
+                return cats.ToArray();
             }
             catch (Exception ex)
             {
@@ -115,16 +112,18 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id, int idUser = -1)
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="id"> id cat </param>
+       /// <param name="idUser"> id user </param>
+       /// <returns> Cat detail and is favorite cat for user </returns>
+        public async Task<(Cat?, bool)> GetCatDetailsAsync(int id, int idUser = 0)
         {
 
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
+                bool isFavorite = false;
                 try
                 {
                     // Find the cat by id
@@ -132,7 +131,7 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
 
                     if (catDetail == null)
                     {
-                        return ApiResponse<CatDetailDto>.Fail("Cat not found");
+                        return (null, isFavorite);
                     }
 
                     // Increment the views count and save to the database
@@ -140,19 +139,14 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
 
-
-                    // Map the Cat to CatDetailDto
-                    var catDetailDto = catDetail.MapToCatDetailsDto();
-
-                    if(idUser >= 0)
+                    if (idUser > 0)
                     {
                         // Check if the user has favorited the cat
-                        var isFavorite = await _dbContext.UserFavorites
+                         isFavorite = await _dbContext.UserFavorites
                             .AnyAsync(uf => uf.CatId == id && uf.UserId == idUser);
-                        catDetailDto.IsFavorite = isFavorite;
                     }
 
-                    return ApiResponse<CatDetailDto>.Success(catDetailDto);
+                    return (catDetail, isFavorite);
 
                 }
                 catch (Exception ex)

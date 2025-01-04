@@ -1,4 +1,5 @@
 ﻿using CatAdoptionMobileApp.Api.Services.Interfaces;
+using CatAdoptionMobileApp.Domain.Exceptions;
 using CatAdoptionMobileApp.Domain.Models;
 using CatAdoptionMobileApp.EntityFramework.Repositories;
 using CatAdoptionMobileApp.Shared.Dtos;
@@ -24,13 +25,14 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
-                var apiResult = await _userCatRepository.ToggleUserCatFavoriteAsync(userId, catId);
+                // Toggle the favorite cat
+                await _userCatRepository.ToggleUserCatFavoriteAsync(userId, catId);
 
-                return apiResult;
+                return ApiResponse.Success();
             }
             catch (Exception)
             {
-                return ApiResponse.Fail("Something went wrong while toggling the favorite status.");
+                return ApiResponse.Fail("Something went wrong while toggling the favorite cat.");
             }
         }
 
@@ -43,8 +45,15 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
-                var favoritesCatListDtos = await _userCatRepository.GetUserAdoptionCatsAsync(userId);
-                return favoritesCatListDtos;
+                // Fetching favorite cats from the database
+                var favoriteCatsArray = await _userCatRepository.GetUserAdoptionCatsAsync(userId);
+
+                // Mapping the Cat[] to CatListDto[]
+                var favoritesCatListDtos = favoriteCatsArray
+                                          .Select(c => c.MapToCatListDto())
+                                          .ToArray();
+
+                return ApiResponse<CatListDto[]>.Success(favoritesCatListDtos);
             }
             catch (Exception)
             {
@@ -61,8 +70,15 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
-                var returnCatListDto = await _userCatRepository.GetUserAdoptionCatsAsync(userId);
-                return returnCatListDto;
+                // Fetching adopted cats from the database
+                var returnCats = await _userCatRepository.GetUserAdoptionCatsAsync(userId);
+
+                // Mapping the Cat[] to CatListDto[]
+                var returnCatListDto = returnCats
+                                      .Select(c => c.MapToCatListDto())
+                                      .ToArray();
+
+                return ApiResponse<CatListDto[]>.Success(returnCatListDto);
             }
             catch (Exception)
             {
@@ -80,8 +96,17 @@ namespace CatAdoptionMobileApp.Api.Services
         {
             try
             {
-                var resultUserAdoption = await  _userCatRepository.AdoptCatAsync(userId, catId);
-                return resultUserAdoption;
+                var userAdoption = await  _userCatRepository.AdoptCatAsync(userId, catId);
+
+                return ApiResponse<UserAdoption>.Success(userAdoption);
+            }
+            catch (NotAvailableAdoptionCat)
+            {
+                return ApiResponse<UserAdoption>.Fail("Cat is not available for adoption");
+            }
+            catch (AlreadyAdoptedCatByUser)
+            {
+                return ApiResponse<UserAdoption>.Fail("Cat is already adopted by the user");
             }
             catch (Exception)
             {

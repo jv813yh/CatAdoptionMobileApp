@@ -18,19 +18,11 @@ namespace CatAdoptionMobileApp.Api.Controllers
         // POST api/auth/login
         [HttpPost("login")] 
         public async Task<ApiResponse<AuthResponseDto>> LoginAsync([FromBody] LoginRequestDto loginDto)
-        {
-            var apiResponse = await _authService.LoginAsync(loginDto);
-
-            return apiResponse;
-        }
+            => await _authService.LoginAsync(loginDto);
 
         // POST api/auth/register
         [HttpPost("register")] 
         public async Task<ApiResponse<AuthResponseDto>> RegisterAsync([FromBody] RegisterRequestDto registerDto)
-        {
-            var apiResponse = await _authService.RegisterAsync(registerDto);
-
-            return apiResponse;
-        }
+            => await _authService.RegisterAsync(registerDto);
     }
 }
