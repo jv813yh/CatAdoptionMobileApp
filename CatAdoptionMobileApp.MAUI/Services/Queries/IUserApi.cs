@@ -24,7 +24,7 @@
         Task<Shared.Dtos.ApiResponse<UserAdoption>> AdoptCatAsync(int catId);
 
         // GET api/cat/view-cat-details/1
-        [Get("/api/cat/view-cat-details/{id}")]
-        Task<Shared.Dtos.ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id);
+        [Get("/api/user/view-cat-details/{catId}")]
+        Task<Shared.Dtos.ApiResponse<CatDetailDto>> GetCatDetailsAsync(int catId);
     }
 }

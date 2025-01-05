@@ -48,6 +48,10 @@
                        WidthRequest="30"
                        HeightRequest="30"
                        Aspect="AspectFill">
+                    <Image.Shadow>
+                        <Shadow Brush="{StaticResource BgColor}"
+                                Radius="50"/>
+                    </Image.Shadow>
                     <Image.Triggers>
                         <DataTrigger TargetType="Image"
                                      Binding="{Binding CatDetail.IsFavorite}"

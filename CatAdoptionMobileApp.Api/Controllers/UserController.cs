@@ -23,7 +23,8 @@ namespace CatAdoptionMobileApp.Api.Controllers
         }
 
         private int UserId 
-            => Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+            => Convert.ToInt32(User.Claims.FirstOrDefault(c => 
+                                        c.Type == ClaimTypes.NameIdentifier)?.Value);
 
         // POST api/user/favorite/1
         [HttpPost("favorite/{catId:int}")]
@@ -45,9 +46,9 @@ namespace CatAdoptionMobileApp.Api.Controllers
         public async Task<ApiResponse<UserAdoption>> AdoptCatAsync(int catId)
             => await _userCatService.AdoptCatAsync(UserId, catId);
 
-        // GET api/cat/view-cat-details/1
-        [HttpGet("view-cat-details/{id:int}")]
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id)
-            => await _catService.GetCatDetailsAsync(id, UserId);
+        // GET api/user/view-cat-details/1
+        [HttpGet("view-cat-details/{catId:int}")]
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int catId)
+            => await _catService.GetCatDetailsAsync(catId, UserId);
     }
 }

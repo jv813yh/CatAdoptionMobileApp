@@ -7,7 +7,7 @@ namespace CatAdoptionMobileApp.Api.Services.Interfaces
         Task<ApiResponse<CatListDto[]>> GetAllCatsAsync();
         Task<ApiResponse<CatListDto[]>> GetNewAddedCatsAsync(int count);
         Task<ApiResponse<CatListDto[]>> GetRandomCatsAsync(int count);
-        Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id, int idUser = 0);
+        Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int catId, int userId = 0);
         Task<ApiResponse<CatListDto[]>> GetPopularCatsAsync(int count);
     }
 }

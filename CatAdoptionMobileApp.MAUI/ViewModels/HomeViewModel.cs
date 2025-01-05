@@ -48,6 +48,8 @@ namespace CatAdoptionMobileApp.MAUI.ViewModels
                 if (loggedInUser != null)
                 {
                     UserName = loggedInUser.Name;
+                    // Set the token
+                    _commonService.SetToken(loggedInUser.Token);
                 }
             }
             else

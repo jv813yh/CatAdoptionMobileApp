@@ -18,8 +18,8 @@
         Task<Shared.Dtos.ApiResponse<CatListDto[]>> GetRandomCatsAsync(int count);
 
         // GET api/cat/1
-        [Get("/api/cat/{id}")]
-        Task<Shared.Dtos.ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id);
+        [Get("/api/cat/{catId}")]
+        Task<Shared.Dtos.ApiResponse<CatDetailDto>> GetCatDetailsAsync(int catId);
 
         // GET api/cat/popular/10
         [Get("/api/cat/popular/{count}")]

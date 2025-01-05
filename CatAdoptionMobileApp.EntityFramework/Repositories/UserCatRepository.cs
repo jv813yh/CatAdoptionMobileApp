@@ -29,38 +29,31 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
         /// <returns></returns>
         public async Task ToggleUserCatFavoriteAsync(int userId, int catId)
         {
-            using (var transaction = _dbContext.Database.BeginTransaction())
+            try
             {
-                try
-                {
-                    // Find the first favorite of the user for the cat
-                    var firstFavorite = await _currentUserFavoritesSet
-                            .FirstOrDefaultAsync(f => f.UserId == userId && f.CatId == catId);
+                // Find the first favorite of the user for the cat
+                var firstFavorite = await _currentUserFavoritesSet
+                        .FirstOrDefaultAsync(f => f.UserId == userId && f.CatId == catId);
 
-                    // If the user has not favorited the cat, add it to the favorites
-                    if (firstFavorite == null)
-                    {
-                        await AddAsync(new UserFavorites
-                        {
-                            UserId = userId,
-                            CatId = catId
-                        });
-                    }
-                    else
-                    {
-                        // If the user has already favorited the cat, remove it from the favorites
-                        await DeleteAsync(firstFavorite.Id);
-                    }
-
-                    await _dbContext.SaveChangesAsync();
-                    await transaction.CommitAsync();
-                }
-                catch (Exception ex)
+                // If the user has not favorited the cat, add it to the favorites
+                if (firstFavorite == null)
                 {
-                    // Todo: Log database-related errors here
-                    await transaction.RollbackAsync();
-                    throw; // rethrowing to let higher layers handle it
+                    await AddAsync(new UserFavorites
+                    {
+                        UserId = userId,
+                        CatId = catId
+                    });
                 }
+                else
+                {
+                    // If the user has already favorited the cat, remove it from the favorites
+                    await DeleteAsync(firstFavorite.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Todo: Log database-related errors here
+                throw;
             }
         }
 

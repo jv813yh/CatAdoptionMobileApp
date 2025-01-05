@@ -66,6 +66,8 @@
                 {
                     UserName = loggedInUser.Name.ToUpper();
                     IsLoggedIn = true;
+                    // Set the token
+                    _commonService.SetToken(loggedInUser.Token);
                 }
             }
             else
@@ -85,6 +87,7 @@
                 if (IsLoggedIn)
                 {
                     _authService.Logout();
+                    IsLoggedIn = false;
                     //_commonService.LoginStatusChanged -= OnLoginStatusChanged;
                     await GoToPageAsync($"//{nameof(HomePage)}");
                 }

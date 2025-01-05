@@ -80,9 +80,12 @@
         /// <returns></returns>
         public void Logout()
         {
+            // Set the token to null
             _commonService.SetToken(null);
-            _commonService.NotifyLoginStatusChanged();
+            // Remove the user info from the preferences
             RemoveUserFromPreferences();
+            // Notify the subscribers that the login status has changed
+            _commonService.NotifyLoginStatusChanged();
         }
 
         public LoggedInUser? GetUserInfo()

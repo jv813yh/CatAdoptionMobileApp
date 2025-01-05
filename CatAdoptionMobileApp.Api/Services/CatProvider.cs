@@ -118,11 +118,11 @@ namespace CatAdoptionMobileApp.Api.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int id, int idUser = 0)
+        public async Task<ApiResponse<CatDetailDto>> GetCatDetailsAsync(int catId, int userId = 0)
         {
             try
             {
-                var catDetails = await _catRepository.GetCatDetailsAsync(id, idUser);
+                var catDetails = await _catRepository.GetCatDetailsAsync(catId, userId);
 
                 if (catDetails.Item1 == null)
                 {

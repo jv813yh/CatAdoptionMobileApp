@@ -31,24 +31,62 @@
                 SetTrueBoolValues();
 
                 // Check if the user is logged in or not to get the cat details
-                var response = _authProvider.IsLoggedIn
-                    ? await _userApi.GetCatDetailsAsync(value)
-                    : await _catApi.GetCatDetailsAsync(value);
+                //var response = _authProvider.IsLoggedIn
+                //    ? await _userApi.GetCatDetailsAsync(value)
+                //    : await _catApi.GetCatDetailsAsync(value);
 
-                if (response.IsSuccess)
+                if(_authProvider.IsLoggedIn)
                 {
-                    var CatDto = response.Data;
-
-                    if (CatDto != null)
+                    var response = await _userApi.GetCatDetailsAsync(value);
+                    if (response.IsSuccess)
                     {
-                        // Map CatDto to Cat
-                        CatDetail = MapCatDtoToCat(CatDto);
+                        var CatDto = response.Data;
+
+                        if (CatDto != null)
+                        {
+                            // Map CatDto to Cat
+                            CatDetail = MapCatDtoToCat(CatDto);
+                        }
+                    }
+                    else
+                    {
+                        await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
                     }
                 }
                 else
                 {
-                    await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
+                    var response = await _catApi.GetCatDetailsAsync(value);
+                    if (response.IsSuccess)
+                    {
+                        var CatDto = response.Data;
+
+                        if (CatDto != null)
+                        {
+                            // Map CatDto to Cat
+                            CatDetail = MapCatDtoToCat(CatDto);
+                        }
+                    }
+                    else
+                    {
+                        await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
+                    }
+
                 }
+
+                //if (response.IsSuccess)
+                //{
+                //    var CatDto = response.Data;
+
+                //    if (CatDto != null)
+                //    {
+                //        // Map CatDto to Cat
+                //        CatDetail = MapCatDtoToCat(CatDto);
+                //    }
+                //}
+                //else
+                //{
+                //    await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
+                //}
             }
             catch (ApiException apiEx)
             {
@@ -79,17 +117,23 @@
                 }
 
                 SetTrueBoolValues();
-                // Toggle favorite status
-                CatDetail.IsFavorite = !CatDetail.IsFavorite;
                 // Call the API to toggle favorite status
-                await _userApi.ToggleCatFavoriteAsync(CatDetail.Id);
+                var resultApi = await _userApi.ToggleCatFavoriteAsync(CatDetail.Id);
+
+                if (resultApi.IsSuccess)
+                {
+                    // Toggle favorite status
+                    CatDetail.IsFavorite = !CatDetail.IsFavorite;
+                    await ShowToastMessageAsync("Favorite status updated");
+                }
+                else
+                {
+                    await ShowAlertMessageAsync("Error", "Error while toggling favorite cat", "Ok");
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error in ToggleFavoriteCat: {ex.Message}");
-
-                // Revert back the favorite status
-                CatDetail.IsFavorite = !CatDetail.IsFavorite;
                 await ShowAlertMessageAsync("Error", "Error while toggling favorite cat", "Ok");
             }
             finally
