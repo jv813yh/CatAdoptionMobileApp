@@ -55,6 +55,11 @@
                                        HorizontalOptions="Center"/>
                                 
                             </VerticalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:FavoritesViewModel}}, Path=GoToDetailsPageCommand}"
+                                                      CommandParameter="{Binding Id}"/>
+                            </Border.GestureRecognizers>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

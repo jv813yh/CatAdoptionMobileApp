@@ -6,8 +6,7 @@
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(ChangePasswordPage), typeof(ChangePasswordPage));
-            Routing.RegisterRoute(nameof(AdoptionPage), typeof(AdoptionPage));
+            Routing.RegisterRoute(nameof(AdoptionSuccessPage), typeof(AdoptionSuccessPage));
         }
     }
 }

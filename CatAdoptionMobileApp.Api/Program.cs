@@ -85,6 +85,10 @@ namespace CatAdoptionMobileApp.Api
         }
 
 
+        /// <summary>
+        /// Apply database migrations and seed cats in the database (test data) 
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         static void ApplyDbMigrations(IServiceProvider serviceProvider)
         {
             using (var scope = serviceProvider.CreateScope())
@@ -95,6 +99,8 @@ namespace CatAdoptionMobileApp.Api
                 {
                     dbContext.Database.Migrate();
                 }
+
+                dbContext.SeedCats();
             }
         }
     }

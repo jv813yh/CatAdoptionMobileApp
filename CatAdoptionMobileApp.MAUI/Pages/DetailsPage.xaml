@@ -134,8 +134,19 @@
         </Grid>
 
         <Button Grid.Row="3"
-                    Text="Adopt Me Now"
-                    Style="{StaticResource btnPrimary}"/>
+                Text="Adopt Now"
+                Style="{StaticResource btnPrimary}"
+                Command="{Binding AdoptCatNowCommand}"
+                CommandParameter="{Binding CatDetail.Id}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding CatDetail.AdoptionStatus}"
+                             Value="Adopted">
+                    <Setter Property="Text" Value="Adopted"/>
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
 
 
         <ActivityIndicator Grid.RowSpan="4"

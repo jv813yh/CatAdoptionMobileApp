@@ -32,14 +32,24 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
             //    .HasKey(uf => new { uf.UserId, uf.CatId });
 
             // Initial data seeding for cats
-            modelBuilder.Entity<Cat>()
-                .HasData(InitialCatsData());
+            //modelBuilder.Entity<Cat>()
+            //    .HasData(InitialCatsData());
 
             //// Define the maximum length for user properties Salt and PasswordHash
             //modelBuilder.Entity<User>().Property(u => 
             //    u.Salt).HasMaxLength(100);
             //modelBuilder.Entity<User>().Property(u =>
             //    u.PasswordHash).HasMaxLength(100);
+        }
+
+        public void SeedCats()
+        {
+            if (!Cats.Any())
+            {
+                // Initial data seeding for cats
+                Cats.AddRange(InitialCatsData());
+                SaveChanges();
+            }
         }
 
         /// <summary>

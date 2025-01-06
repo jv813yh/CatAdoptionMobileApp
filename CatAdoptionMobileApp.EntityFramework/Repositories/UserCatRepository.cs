@@ -154,9 +154,13 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
                         AdoptedOn = DateTime.Now
                     };
 
+                    // Update the cat in the database
+                    _dbContext.Set<Cat>().Update(cat);
                     // Save the user adoption to the database
                     await _userAdoptionSet.AddAsync(newUserAdoption);
+                    // Save the changes to the database
                     await _dbContext.SaveChangesAsync();
+                    // Commit the transaction
                     await transaction.CommitAsync();
 
 

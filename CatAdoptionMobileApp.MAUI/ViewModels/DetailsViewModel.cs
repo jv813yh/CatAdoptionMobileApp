@@ -30,63 +30,25 @@
             {
                 SetTrueBoolValues();
 
-                // Check if the user is logged in or not to get the cat details
-                //var response = _authProvider.IsLoggedIn
-                //    ? await _userApi.GetCatDetailsAsync(value)
-                //    : await _catApi.GetCatDetailsAsync(value);
+                //Check if the user is logged in or not to get the cat details
+                var response = _authProvider.IsLoggedIn
+                   ? await _userApi.GetCatDetailsAsync(value)
+                   : await _catApi.GetCatDetailsAsync(value);
 
-                if(_authProvider.IsLoggedIn)
+                if (response.IsSuccess)
                 {
-                    var response = await _userApi.GetCatDetailsAsync(value);
-                    if (response.IsSuccess)
-                    {
-                        var CatDto = response.Data;
+                    var CatDto = response.Data;
 
-                        if (CatDto != null)
-                        {
-                            // Map CatDto to Cat
-                            CatDetail = MapCatDtoToCat(CatDto);
-                        }
-                    }
-                    else
+                    if (CatDto != null)
                     {
-                        await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
+                        // Map CatDto to Cat
+                        CatDetail = MapCatDtoToCat(CatDto);
                     }
                 }
                 else
                 {
-                    var response = await _catApi.GetCatDetailsAsync(value);
-                    if (response.IsSuccess)
-                    {
-                        var CatDto = response.Data;
-
-                        if (CatDto != null)
-                        {
-                            // Map CatDto to Cat
-                            CatDetail = MapCatDtoToCat(CatDto);
-                        }
-                    }
-                    else
-                    {
-                        await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
-                    }
-
+                    await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
                 }
-
-                //if (response.IsSuccess)
-                //{
-                //    var CatDto = response.Data;
-
-                //    if (CatDto != null)
-                //    {
-                //        // Map CatDto to Cat
-                //        CatDetail = MapCatDtoToCat(CatDto);
-                //    }
-                //}
-                //else
-                //{
-                //    await ShowAlertMessageAsync("Problem", "Problem while loading cat details", "Ok");
-                //}
             }
             catch (ApiException apiEx)
             {
@@ -117,7 +79,7 @@
                 }
 
                 SetTrueBoolValues();
-                // Call the API to toggle favorite status
+                // Call the API to toggle favorite cat
                 var resultApi = await _userApi.ToggleCatFavoriteAsync(CatDetail.Id);
 
                 if (resultApi.IsSuccess)
@@ -153,6 +115,44 @@
         protected override void SetTrueBoolValues()
         {
             IsBusy = true;
+        }
+
+        [RelayCommand]
+        private async Task AdoptCatNowAsync(int catId)
+        {
+            if(!_authProvider.IsLoggedIn)
+            {
+               bool result = await ShowConfirmMessageAsync("Not Logged In User Error", "Please login !\nDo you want to go to login page ?", 
+                   "Yes", "No");
+                if (result)
+                {
+                    await GoToPageAsync($"//{nameof(LoginRegisterPage)}");
+                }
+            }
+            try
+            {
+                SetTrueBoolValues();
+                // Call the API to adopt cat
+                var apiResponse = await _userApi.AdoptCatAsync(catId);
+                if (apiResponse.IsSuccess)
+                {
+                    // Navigate to Adoption Success Page if the adoption is successful
+                    await GoToPageAsync(nameof(AdoptionSuccessPage));
+                }
+                else
+                {
+                    await ShowToastMessageAsync("Error while adopting cat");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in AdoptCatNowAsync: {ex.Message}");
+                await ShowAlertMessageAsync("Error", "Error while adopting cat", "Ok");
+            }
+            finally
+            {
+                SetFalseBoolValues();
+            }
         }
 
         private CatExtended MapCatDtoToCat(CatDetailDto catDetailDto)
