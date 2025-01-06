@@ -37,7 +37,9 @@
                              .AddSingleton<AllCatsViewModel>() // Register the AllCatsViewModel as singleton
                              .AddTransient<AllCatsPage>() // Register the AllCatsPage as transient
                              .AddTransient<ProfilePage>() // Register the ProfilePage as transienttransient
-                             .AddSingleton<ProfileViewModel>() // Register the ProfileViewModel as singleton
+                             .AddSingleton<ProfileViewModel>() // Register the ProfileViewModel as transient
+                             .AddTransient<FavoritesViewModel>() // Register the FavoritesViewModel as transient
+                             .AddTransient<FavoritesPage>() // Register the FavoritesPage as singleton
                              .AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage)) // Register the DetailsPage
                                                                                                              // and DetailsViewModel as transient with shell route
                              .AddSingleton<IAuthService, AuthProvider>(); // Register the AuthProvider as IAuthService as singleton

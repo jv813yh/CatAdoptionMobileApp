@@ -11,7 +11,7 @@
         private int _catId;
 
         [ObservableProperty]
-        private Cat _catDetail;
+        private CatExtended _catDetail;
 
         public DetailsViewModel(ICatApi catApi,
                                 IAuthService authProvider,
@@ -21,7 +21,7 @@
             _authProvider = authProvider;
             _userApi = userApi;
 
-            _catDetail = new Cat();
+            _catDetail = new CatExtended();
         }
 
         async partial void OnCatIdChanging(int value)
@@ -155,8 +155,8 @@
             IsBusy = true;
         }
 
-        private Cat MapCatDtoToCat(CatDetailDto catDetailDto)
-            => new Cat
+        private CatExtended MapCatDtoToCat(CatDetailDto catDetailDto)
+            => new CatExtended
             {
                 Id = catDetailDto.Id,
                 IsFavorite = catDetailDto.IsFavorite,

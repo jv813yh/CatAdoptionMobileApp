@@ -46,7 +46,7 @@ namespace CatAdoptionMobileApp.Api.Services
             try
             {
                 // Fetching favorite cats from the database
-                var favoriteCatsArray = await _userCatRepository.GetUserAdoptionCatsAsync(userId);
+                var favoriteCatsArray = await _userCatRepository.GetUserFavoriteCatsAsync(userId);
 
                 // Mapping the Cat[] to CatListDto[]
                 var favoritesCatListDtos = favoriteCatsArray
