@@ -12,5 +12,9 @@
         // POST api/auth/register
         [Post("/api/auth/register")]
         Task<Shared.Dtos.ApiResponse<AuthResponseDto>> RegisterAsync(RegisterRequestDto registerDto);
+
+        // POST api/auth/change-password
+        [Post("/api/auth/change-password")]
+        Task<Shared.Dtos.ApiResponse<AuthResponseDto>> ChangePasswordAsync(ChangePasswordDto loginDto);
     }
 }

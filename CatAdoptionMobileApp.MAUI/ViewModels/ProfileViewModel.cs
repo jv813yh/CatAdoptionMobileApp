@@ -117,9 +117,33 @@
                 await ShowToastMessageAsync("Please login to change password");
                 return;
             }
+
             try
             {
                 SetTrueBoolValues();
+                // Get data from the user
+                string currentEmail = await Shell.Current.DisplayPromptAsync("Change Password", "Enter your current email address", "Ok", "Cancel", "Email address", 16, Keyboard.Default, string.Empty);
+                string currentPassword = await Shell.Current.DisplayPromptAsync("Change Password", "Enter your current password", "Ok", "Cancel", "Current password", 16, Keyboard.Default, string.Empty);
+                string newPassword = await Shell.Current.DisplayPromptAsync("Change Password", "Enter your new password", "Ok", "Cancel", "New Password", 16, Keyboard.Default, string.Empty);
+
+                if (string.IsNullOrEmpty(currentEmail) || string.IsNullOrEmpty(newPassword))
+                {
+                    await ShowAlertMessageAsync("Error", "Email address or password cannot be empty", "Ok");
+                    return;
+                }
+
+                // Ty to change the password
+                bool result = await _authService.ChangePasswordAsync(new ChangePasswordModel(currentEmail, currentPassword, newPassword));
+
+                if (result)
+                {
+                    await ShowToastMessageAsync("Password changed successfully");
+                }
+                else
+                {
+                    await ShowAlertMessageAsync("Error", "Email or password do not match", "Ok");
+                }
+
             }
             catch (Exception ex)
             {

@@ -107,5 +107,32 @@
         // Remove the user info from the preferences
         private void RemoveUserFromPreferences()
             => Preferences.Default.Remove(UIConstants.UserInfo);
+
+        /// <summary>
+        /// Change the user password async
+        /// </summary>
+        /// <param name="emailAddres"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<bool> ChangePasswordAsync(ChangePasswordModel tryChangePassword)
+        {
+            // Create a new ChangePasswordDto object and send it to the API
+            var apiResponse = await _authApi.ChangePasswordAsync(new ChangePasswordDto() 
+            { 
+                Email = tryChangePassword.Email,
+                Password = tryChangePassword.Password,
+                NewPassword = tryChangePassword.NewPassword
+            });
+
+            // Check if the response is successful or not
+            if (apiResponse.IsSuccess)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

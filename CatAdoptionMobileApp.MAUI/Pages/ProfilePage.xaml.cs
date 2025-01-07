@@ -19,7 +19,7 @@ public partial class ProfilePage : ContentPage
                 await Shell.Current.GoToAsync(nameof(AdoptionPage));
                 break;
             case "Change Password":
-                await _viewModel.ShowToastMessageAsync("Change Password");
+                await _viewModel.ChangePasswordCommand.ExecuteAsync(null);
                 break;
             default:
                 break;

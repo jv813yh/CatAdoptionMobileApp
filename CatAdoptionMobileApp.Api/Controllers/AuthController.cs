@@ -17,13 +17,18 @@ namespace CatAdoptionMobileApp.Api.Controllers
 
         // POST api/auth/login
         [HttpPost("login")] 
-        public async Task<ApiResponse<AuthResponseDto>> LoginAsync([FromBody] LoginRequestDto loginDto)
+        public async Task<ApiResponse<AuthResponseDto>> LoginAsync(LoginRequestDto loginDto)
             => await _authService.LoginAsync(loginDto);
 
         // POST api/auth/register
         [HttpPost("register")] 
-        public async Task<ApiResponse<AuthResponseDto>> RegisterAsync([FromBody] RegisterRequestDto registerDto)
+        public async Task<ApiResponse<AuthResponseDto>> RegisterAsync(RegisterRequestDto registerDto)
             => await _authService.RegisterAsync(registerDto);
+
+        // POST api/auth/change-password
+        [HttpPost("change-password")]
+        public async Task<ApiResponse> ChangePassword(ChangePasswordDto tryChangePasswordDto)
+            => await _authService.TryChangePasswordAsync(tryChangePasswordDto);
 
     }
 }

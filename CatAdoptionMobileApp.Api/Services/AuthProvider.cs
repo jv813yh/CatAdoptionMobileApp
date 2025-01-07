@@ -3,6 +3,7 @@ using CatAdoptionMobileApp.Domain.Models;
 using CatAdoptionMobileApp.EntityFramework;
 using CatAdoptionMobileApp.EntityFramework.Repositories;
 using CatAdoptionMobileApp.Shared.Dtos;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CatAdoptionMobileApp.Api.Services
 {
@@ -73,7 +74,7 @@ namespace CatAdoptionMobileApp.Api.Services
 
             // Generate JWT token
             var token = _tokenService.GenerateJWT(newUser);
-            if(token == null)
+            if (token == null)
             {
                 return ApiResponse<AuthResponseDto>.Fail("Token generation failed");
             }
@@ -85,6 +86,40 @@ namespace CatAdoptionMobileApp.Api.Services
 
             // Return the user id, name and token in the response as success
             return ApiResponse<AuthResponseDto>.Success(new AuthResponseDto(newUser.Id, newUser.Name, token));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tryLoginDto"></param>
+        /// <returns></returns>
+        public async Task<ApiResponse> TryChangePasswordAsync(ChangePasswordDto tryChangePasswordDto)
+        {
+            if(string.IsNullOrEmpty(tryChangePasswordDto.NewPassword))
+            {
+                return ApiResponse.Fail("New password is empty");
+            }
+
+            // Verify the password
+            var result = await _userRepository.VerifyPasswordAsync(tryChangePasswordDto.Email, tryChangePasswordDto.Password);
+            if (!result)
+            {
+                return ApiResponse.Fail("Incorrect password or email");
+            }
+            else
+            {
+                // Try to change the password
+                var passwordResult = await _userRepository.ChangePasswordAsync(tryChangePasswordDto.Email, tryChangePasswordDto.NewPassword);
+
+                if(passwordResult)
+                {
+                    return ApiResponse.Success();
+                }
+                else
+                {
+                    return ApiResponse.Fail("Password change failed");
+                }
+            }
         }
     }
 }

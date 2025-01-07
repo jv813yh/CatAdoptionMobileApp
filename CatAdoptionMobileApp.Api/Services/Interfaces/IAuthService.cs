@@ -6,5 +6,6 @@ namespace CatAdoptionMobileApp.Api.Services.Interfaces
     {
         Task<ApiResponse<AuthResponseDto>> LoginAsync(LoginRequestDto loginDto);
         Task<ApiResponse<AuthResponseDto>> RegisterAsync(RegisterRequestDto registerDto);
+        Task<ApiResponse> TryChangePasswordAsync(ChangePasswordDto tryChangePasswordDto);
     }
 }
