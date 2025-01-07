@@ -24,5 +24,6 @@ namespace CatAdoptionMobileApp.Api.Controllers
         [HttpPost("register")] 
         public async Task<ApiResponse<AuthResponseDto>> RegisterAsync([FromBody] RegisterRequestDto registerDto)
             => await _authService.RegisterAsync(registerDto);
+
     }
 }

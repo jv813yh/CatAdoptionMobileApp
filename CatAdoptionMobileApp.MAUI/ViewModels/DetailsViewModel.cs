@@ -120,7 +120,7 @@
         [RelayCommand]
         private async Task AdoptCatNowAsync(int catId)
         {
-            if(!_authProvider.IsLoggedIn)
+            if (!_authProvider.IsLoggedIn)
             {
                bool result = await ShowConfirmMessageAsync("Not Logged In User Error", "Please login !\nDo you want to go to login page ?", 
                    "Yes", "No");

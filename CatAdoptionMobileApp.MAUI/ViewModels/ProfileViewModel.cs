@@ -109,6 +109,29 @@
             }
         }
 
+        [RelayCommand]
+        private async Task ChangePasswordAsync()
+        {
+            if(!_authService.IsLoggedIn)
+            {
+                await ShowToastMessageAsync("Please login to change password");
+                return;
+            }
+            try
+            {
+                SetTrueBoolValues();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in ChangePasswordAsync: {ex.Message}");
+                await ShowAlertMessageAsync("Error", "Error while changing password", "Ok");
+            }
+            finally
+            {
+                SetFalseBoolValues();
+            }
+        }
+
         protected override void SetFalseBoolValues()
         {
             IsBusy = false;

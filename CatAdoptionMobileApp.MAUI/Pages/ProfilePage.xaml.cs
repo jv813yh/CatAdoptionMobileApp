@@ -16,7 +16,7 @@ public partial class ProfilePage : ContentPage
         switch(tappedOption)
         {
             case "My Adoptions":
-                await _viewModel.ShowToastMessageAsync("My Adoptions");
+                await Shell.Current.GoToAsync(nameof(AdoptionPage));
                 break;
             case "Change Password":
                 await _viewModel.ShowToastMessageAsync("Change Password");

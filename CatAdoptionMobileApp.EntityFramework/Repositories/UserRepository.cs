@@ -34,5 +34,24 @@ namespace CatAdoptionMobileApp.EntityFramework.Repositories
             }
 
         }
+
+        public async Task<bool> VerifyPasswordAsync(string email, string hashPassword)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(hashPassword))
+            {
+                return false;
+            }
+            try
+            {
+                var result = await _dbContext.Set<User>()
+                                  .AnyAsync(u => u.Email == email && u.PasswordHash == hashPassword);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Log database-related errors here ...
+                throw; // rethrowing to let higher layers handle it
+            }
+        }
     }
 }

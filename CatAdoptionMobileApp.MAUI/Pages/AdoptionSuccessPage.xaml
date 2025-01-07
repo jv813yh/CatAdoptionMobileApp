@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CatAdoptionMobileApp.MAUI.Pages.AdoptionSuccessPage"
-             Title="AdoptionSuccessPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             x:Class="CatAdoptionMobileApp.MAUI.Pages.AdoptionSuccessPage">
+
+    <VerticalStackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Spacing="20">
+
+        <Image x:Name="VerificationImage"
+               Scale="0.5"
+               Source="verification.png"
+               HeightRequest="250"
+               WidthRequest="250"/>
+
+        <Label x:Name="AdoptionLabel"
+               Scale="0.2"
+               Text="Adoption Success!"
+               FontSize="40"
+               TextColor="{StaticResource Primary}"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+
+        <Button x:Name="ExploreMoreCatsButton"
+                Scale="0.3"
+                Text="Explore more cats"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                CornerRadius="10"
+                Padding="10,5"
+                Style="{StaticResource btnPrimary}"
+                Clicked="OnBackToHomeClicked"/>
+
     </VerticalStackLayout>
 </ContentPage>

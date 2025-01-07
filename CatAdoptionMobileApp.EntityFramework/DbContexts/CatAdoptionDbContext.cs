@@ -23,24 +23,24 @@ namespace CatAdoptionMobileApp.EntityFramework.DbContexts
         }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            // Define the composite key for UserAdoptions
-            //modelBuilder.Entity<UserFavorites>()
-            //    .HasKey(uf => new { uf.UserId, uf.CatId });
+        //    // Define the composite key for UserAdoptions
+        //    //modelBuilder.Entity<UserFavorites>()
+        //    //    .HasKey(uf => new { uf.UserId, uf.CatId });
 
-            // Initial data seeding for cats
-            //modelBuilder.Entity<Cat>()
-            //    .HasData(InitialCatsData());
+        //    // Initial data seeding for cats
+        //    //modelBuilder.Entity<Cat>()
+        //    //    .HasData(InitialCatsData());
 
-            //// Define the maximum length for user properties Salt and PasswordHash
-            //modelBuilder.Entity<User>().Property(u => 
-            //    u.Salt).HasMaxLength(100);
-            //modelBuilder.Entity<User>().Property(u =>
-            //    u.PasswordHash).HasMaxLength(100);
-        }
+        //    //// Define the maximum length for user properties Salt and PasswordHash
+        //    //modelBuilder.Entity<User>().Property(u => 
+        //    //    u.Salt).HasMaxLength(100);
+        //    //modelBuilder.Entity<User>().Property(u =>
+        //    //    u.PasswordHash).HasMaxLength(100);
+        //}
 
         public void SeedCats()
         {

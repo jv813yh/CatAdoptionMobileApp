@@ -41,6 +41,8 @@
                              .AddTransient<FavoritesViewModel>() // Register the FavoritesViewModel as transient
                              .AddTransient<FavoritesPage>() // Register the FavoritesPage as transient
                              .AddTransient<AdoptionSuccessPage>() // Register the FavoritesPage as transient
+                             .AddTransientWithShellRoute<AdoptionPage, MyAdoptionsViewModel>(nameof(AdoptionPage)) // Register the AdoptionPage and MyAdoptionsViewModel
+                                                                                                                   // as transient with shell route
                              .AddTransientWithShellRoute<DetailsPage, DetailsViewModel>(nameof(DetailsPage)) // Register the DetailsPage
                                                                                                              // and DetailsViewModel as transient with shell route
                              .AddSingleton<IAuthService, AuthProvider>(); // Register the AuthProvider as IAuthService as singleton

@@ -1,12 +1,82 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CatAdoptionMobileApp.MAUI.Pages.AdoptionPage"
-             Title="AdoptionPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="AdoptionPage"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:vm="clr-namespace:CatAdoptionMobileApp.MAUI.ViewModels"
+             x:Class="CatAdoptionMobileApp.MAUI.Pages.AdoptionPage">
+
+    <Grid>
+
+        <CollectionView ItemsSource="{Binding MyAdoptions}"
+                        ItemsLayout="VerticalGrid, 2">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 50"
+                            StrokeThickness="0"
+                            Margin="15">
+                        <VerticalStackLayout Spacing="5">
+                            <Grid>
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       WidthRequest="150"
+                                       HeightRequest="150"/>
+                                <Border StrokeShape="RoundRectangle 50"
+                                         WidthRequest="40"
+                                         HeightRequest="40"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="End"
+                                         Margin="5"
+                                         StrokeThickness="2">
+                                    <Image Source="heart_fill.png"
+                                            WidthRequest="30"
+                                            HeightRequest="30">
+                                        <Image.Triggers>
+                                            <DataTrigger TargetType="Image"
+                                                  Binding="{Binding IsFavorite}"
+                                                  Value="False">
+                                                <Setter Property="Source" Value="heart.svg"/>
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                    </Image>
+                                </Border>
+                            </Grid>
+
+                            <Label Text="{Binding Name}"
+                                    TextColor="{StaticResource Primary}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"/>
+
+                        </VerticalStackLayout>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:MyAdoptionsViewModel}}, Path=GoToDetailsPageCommand}"
+                                           CommandParameter="{Binding Id}"/>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <VerticalStackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center">
+
+            <Label  FontAttributes="Bold"
+                    FontSize="24"
+                    Text="Total sum: "
+                    TextColor="{StaticResource Black}"/>
+
+            <Label FontAttributes="Bold"
+                   FontSize="24"
+                   Text="{Binding TotalSum, StringFormat='{0}€'}"
+                   TextColor="{StaticResource Primary}"/>
+        </VerticalStackLayout>
+
+
+        <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Color="{StaticResource Primary}"/>
+    </Grid>
 </ContentPage>
