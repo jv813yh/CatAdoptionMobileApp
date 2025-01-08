@@ -24,6 +24,7 @@
             if(!_authService.IsLoggedIn)
             {
                 await ShowToastMessageAsync("Please login to view your adoptions");
+                return;
             }
 
             try
@@ -36,7 +37,7 @@
                     if(apiResponse.Data != null)
                     {
                         // Set adoptions and total sum
-                        _myAdoptions = apiResponse.Data;
+                        MyAdoptions = apiResponse.Data;
                         TotalSum = _myAdoptions
                                    .Select(c => c.Price)
                                    .Sum();

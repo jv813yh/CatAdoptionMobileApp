@@ -1,7 +1,9 @@
+using CatAdoptionMobileApp.Api.Hubs;
 using CatAdoptionMobileApp.Api.Services;
 using CatAdoptionMobileApp.Api.Services.Interfaces;
 using CatAdoptionMobileApp.EntityFramework.DbContexts;
 using CatAdoptionMobileApp.EntityFramework.Repositories;
+using CatAdoptionMobileApp.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,6 +58,8 @@ namespace CatAdoptionMobileApp.Api
                 .AddTransient<IAuthService, AuthProvider>()
                 .AddTransient<TokenService>();
 
+            // Add SignalR
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -80,6 +84,9 @@ namespace CatAdoptionMobileApp.Api
             //app.MapControllerRoute(
             //    name: "default",
             //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Register the CatHub with base url
+            app.MapHub<CatHub>(AppConstants.HubPatternUrl);
 
             app.Run();
         }

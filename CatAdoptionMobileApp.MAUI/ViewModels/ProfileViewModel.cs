@@ -126,9 +126,11 @@
                 string currentPassword = await Shell.Current.DisplayPromptAsync("Change Password", "Enter your current password", "Ok", "Cancel", "Current password", 16, Keyboard.Default, string.Empty);
                 string newPassword = await Shell.Current.DisplayPromptAsync("Change Password", "Enter your new password", "Ok", "Cancel", "New Password", 16, Keyboard.Default, string.Empty);
 
-                if (string.IsNullOrEmpty(currentEmail) || string.IsNullOrEmpty(newPassword))
+                if (string.IsNullOrEmpty(currentEmail) || 
+                    string.IsNullOrEmpty(newPassword) ||
+                    string.IsNullOrEmpty(currentPassword))
                 {
-                    await ShowAlertMessageAsync("Error", "Email address or password cannot be empty", "Ok");
+                    await ShowAlertMessageAsync("Error", "Email address or passwords cannot be empty", "Ok");
                     return;
                 }
 

@@ -3,7 +3,6 @@ using CatAdoptionMobileApp.Domain.Models;
 using CatAdoptionMobileApp.EntityFramework;
 using CatAdoptionMobileApp.EntityFramework.Repositories;
 using CatAdoptionMobileApp.Shared.Dtos;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CatAdoptionMobileApp.Api.Services
 {
