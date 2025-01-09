@@ -1,11 +1,13 @@
 ﻿namespace CatAdoptionMobileApp.MAUI.ViewModels
 {
     [QueryProperty(nameof(CatId), nameof(CatId))]
-    public partial class DetailsViewModel : BaseViewModel
+    public partial class DetailsViewModel : BaseViewModel, IAsyncDisposable
     {
         private readonly ICatApi _catApi;
         private readonly IAuthService _authProvider;
         private readonly IUserApi _userApi;
+
+        private readonly CatHubManager _catHubManager;
 
         [ObservableProperty]
         private int _catId;
@@ -15,11 +17,13 @@
 
         public DetailsViewModel(ICatApi catApi,
                                 IAuthService authProvider,
-                                IUserApi userApi)
+                                IUserApi userApi,
+                                CatHubManager catHubManager)
         {
             _catApi = catApi;
             _authProvider = authProvider;
             _userApi = userApi;
+            _catHubManager = catHubManager;
 
             _catDetail = new CatExtended();
         }
@@ -29,6 +33,8 @@
             try
             {
                 SetTrueBoolValues();
+
+                await _catHubManager.ConfigureCatHubAsync(CatDetail.Id, value);
 
                 //Check if the user is logged in or not to get the cat details
                 var response = _authProvider.IsLoggedIn
@@ -107,6 +113,7 @@
         [RelayCommand]
         private async Task GoBackPageAsync()
             => await GoToPageAsync("..");
+
         protected override void SetFalseBoolValues()
         {
             IsBusy = false;
@@ -136,6 +143,8 @@
                 var apiResponse = await _userApi.AdoptCatAsync(catId);
                 if (apiResponse.IsSuccess)
                 {
+                    // Notify the hub that the cat has been adopted
+                    await _catHubManager.SendToServerAsync(nameof(ICatServerHub.CatJustHasAdoptedAsync), catId);
                     // Navigate to Adoption Success Page if the adoption is successful
                     await GoToPageAsync(nameof(AdoptionSuccessPage));
                 }
@@ -170,5 +179,13 @@
                 Price = catDetailDto.Price,
                 AdoptionStatus = catDetailDto.AdoptionStatus
             };
+
+        public async ValueTask DisposeAsync()
+        {
+            // Notify the hub that the cat is not being viewed
+            await _catHubManager.SendToServerAsync(nameof(ICatServerHub.CatIsNotAlreadyViewingAsync), CatDetail.Id);
+            // Disconnect the hub
+            await _catHubManager.DisconnectCatHubAsync();
+        }
     }
 }

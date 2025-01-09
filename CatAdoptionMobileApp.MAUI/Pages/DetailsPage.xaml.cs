@@ -9,4 +9,10 @@ public partial class DetailsPage : ContentPage
         _viewModel = detailsViewModel;
         BindingContext = _viewModel;
     }
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        await _viewModel.DisposeAsync();
+    }
 }
