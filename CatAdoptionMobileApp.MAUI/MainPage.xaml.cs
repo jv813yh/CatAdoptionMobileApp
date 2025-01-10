@@ -15,7 +15,7 @@
 
             if (Preferences.Default.ContainsKey(UIConstants.OnBoardingShown))
             {
-                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                await Shell.Current.GoToAsync($"//{nameof(LoginRegisterPage)}");
             }
             else
             {

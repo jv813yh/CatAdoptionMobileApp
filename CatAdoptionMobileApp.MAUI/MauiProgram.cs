@@ -29,7 +29,9 @@
         /// <param name="serviceCollection"></param>
         static void RegisterAppDependencies(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<LoginRegisterViewModel>() // Register the LoginRegisterViewModel as transient
+            serviceCollection.AddSingleton<ICatHubService, CatHubProvider>() // Register the CatHubProvider as ICatHubService as singleton
+                             .AddSingleton<CatHubManager>() // Register the CatHubManager as singleton
+                             .AddTransient<LoginRegisterViewModel>() // Register the LoginRegisterViewModel as transient
                              .AddTransient<LoginRegisterPage>() // Register the LoginRegisterPage as transient
                              .AddTransient<HomePage>() // Register the HomePage as transient
                              .AddTransient<HomeViewModel>() // Register the HomeViewModel as transient
