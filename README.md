@@ -45,13 +45,6 @@ The project is divided into the following components:
 - **SignalR**: Real-time communication.
 - **Refit**: Simplified API calls in the mobile app.
 
-### Design Patterns
-
-- **Facade Pattern**: Simplifies complex subsystems.
-- **Mediator Pattern**: Manages communication between objects.
-- **Repository Pattern**: Abstracts database operations.
-- **Dependency Injection**: Manages service lifetimes and dependencies.
-
 ## Prerequisites
 
 - .NET 8 SDK
